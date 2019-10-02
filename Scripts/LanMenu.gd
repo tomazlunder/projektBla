@@ -20,17 +20,23 @@ func _ready():
 	var randomPlayerNum = rand_range(10000, 99999)
 	get_node('nameTextEdit').text = "player_" + str(int(randomPlayerNum))
 	
-	globals.playerID = "player_" + str(int(randomPlayerNum))
+	var label = get_node('noGamesFoundLabel')
+	label.hide()
+	
+	globals.playerName = "player_" + str(int(randomPlayerNum))
 	search_for_games()
 	
 func _process(delta):
+	#Listen for looking for game (LFG) packet reply
 	if listenSocket.is_listening() && (listenSocket.get_available_packet_count() > 0):
 		var array_bytes = listenSocket.get_packet()
 		var ip = listenSocket.get_packet_ip()
 		var strData = array_bytes.get_string_from_ascii()
-		print("something came:" + strData)
 		
+		print("something came:" + strData)
 		var arrayData = strData.rsplit(",")
+		
+		#When a proper reply is recieved, add server information into arrays
 		if(arrayData[0] == "I AM SERVER"):
 			gameIPs.append(ip)
 			gameNames.append(arrayData[1])
@@ -42,6 +48,9 @@ func search_for_games():
 	gameIPs = []
 	gameNames = []
 	gamePlayers = []
+	
+	var label = get_node('noGamesFoundLabel')
+	label.hide()
 	
 	listenSocket = PacketPeerUDP.new()
 	listenSocket.listen(listenPort)
@@ -56,11 +65,9 @@ func search_for_games():
 	pollSocket.close()
 	get_node("lanSearchTimeout").start()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 func _on_refreshButton_button_down():
+	var btn = get_node("refreshButton")
+	btn.disabled = true
 	search_for_games()
 
 
@@ -77,7 +84,7 @@ func _on_hostButton_button_down():
     
 	get_tree().set_network_peer(host)
 	
-	var lobby = preload("res://Scenes/Menus/LAN/Lobby/LanLobby.tscn").instance()
+	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
 	get_tree().get_root().add_child(lobby)
 	hide()
 	
@@ -93,6 +100,12 @@ func _on_lanSearchTimeout_timeout():
 		var item = gameIPs[i] + " | " + gameNames[i] + " | " + gamePlayers[i]
 		print("added item to list")
 		itemList.add_item(str(item))
+		
+	if gameIPs.size() == 0:
+		var label = get_node('noGamesFoundLabel')
+		label.show()
+		
+	get_node("refreshButton").disabled = false
 
 
 func _on_joinButton_button_down():
@@ -107,7 +120,7 @@ func _on_joinButton_button_down():
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip,gamePort)
 	get_tree().set_network_peer(host)
-	var lobby = preload("res://Scenes/Menus/LAN/Lobby/LanLobby.tscn").instance()
+	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
 	get_tree().get_root().add_child(lobby)
 	hide()
 	
@@ -117,7 +130,7 @@ func connectToIP(var ip):
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip,gamePort)
 	get_tree().set_network_peer(host)
-	var lobby = preload("res://Scenes/Menus/LAN/Lobby/LanLobby.tscn").instance()
+	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
 	get_tree().get_root().add_child(lobby)
 	hide()
 
@@ -127,5 +140,13 @@ func _on_gameItemList_item_selected(index):
 	
 
 func _on_gameItemList_nothing_selected():
+	var gameList = get_node("gameItemList")
+	#for i in gameList.items.size():
+	#	gameList.
+	
 	var btn = get_node("joinButton")
 	btn.disabled = true
+
+
+func _on_backButton_button_down():
+	pass

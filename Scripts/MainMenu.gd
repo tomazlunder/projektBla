@@ -18,6 +18,6 @@ func _on_buttonStart_button_down():
 	hide()
 
 func _on_buttonLAN_button_down():
-	var lanMenu = preload("res://Scenes/Menus/LAN/LanMenu.tscn").instance()
+	var lanMenu = preload("res://Scenes/Menus/LanMenu.tscn").instance()
 	get_tree().get_root().add_child(lanMenu)
 	hide()

@@ -1,10 +1,21 @@
 extends Node
 
-var playerID = -1
+var playerName = ""
 var otherPlayers = []
+var otherPlayerNames = {}
 
-func to_main_menu():
-	var mainMenu = preload("res://Scenes/Menus/Main/MainMenu.tscn").instance()
-	var current = get_tree().get_root().get_child(0)
-	get_tree().get_root().add_child(mainMenu)
-	get_tree().get_root().get_child(0)
+#MENU_LEVEL.MAIN is index 1 not zero so keep that in mind if you change to an array
+#enum MENU_LEVEL {
+#        NONE,
+#        MAIN,
+#        START,
+#        JOIN,
+#        OPTIONS
+#    }
+#
+#var menus = {
+#    MENU_LEVEL.MAIN : preload("res://gui/MainMenuScreen.tscn").instance(), 
+#    MENU_LEVEL.START : preload("res://gui/StartGameScreen.tscn").instance(),
+#    MENU_LEVEL.JOIN : preload("res://gui/JoinGameScreen.tscn").instance(),
+#    MENU_LEVEL.OPTIONS : preload("res://gui/OptionsScreen.tscn").instance()
+#}
