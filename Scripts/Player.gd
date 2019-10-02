@@ -16,16 +16,16 @@ func _process(delta):
 	var moveByX = 0
 	var moveByY = 0
 	if(is_network_master()):
-		if Input.is_key_pressed(KEY_LEFT):
+		if Input.is_action_pressed("ui_left"):
 			moveByX = -5
 			
-		if Input.is_key_pressed(KEY_RIGHT):
+		if Input.is_action_pressed("ui_right"):
 			moveByX = 5
 			
-		if Input.is_key_pressed(KEY_UP):
+		if Input.is_action_pressed("ui_up"):
 			moveByY = -5
 			
-		if Input.is_key_pressed(KEY_DOWN):
+		if Input.is_action_pressed("ui_down"):
 			moveByY = 5
 			
 		#Tell other computers about our new position so they can update

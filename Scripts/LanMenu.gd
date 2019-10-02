@@ -81,7 +81,7 @@ func _on_hostButton_button_down():
 	if res != OK:
 		print("Error creating server")
 		return
-    
+		
 	get_tree().set_network_peer(host)
 	
 	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
@@ -113,16 +113,14 @@ func _on_joinButton_button_down():
 	if itemList.get_selected_items().size() == 0:
 		return
 		
-	
 	print("Joining network")
 	var ip = gameIPs[itemList.get_selected_items()[0]]
 	
+	get_tree().set_network_peer(null) 
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip,gamePort)
 	get_tree().set_network_peer(host)
-	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
-	get_tree().get_root().add_child(lobby)
-	hide()
+	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 	
 func connectToIP(var ip):
 	print("Joining network")
@@ -141,12 +139,9 @@ func _on_gameItemList_item_selected(index):
 
 func _on_gameItemList_nothing_selected():
 	var gameList = get_node("gameItemList")
-	#for i in gameList.items.size():
-	#	gameList.
 	
 	var btn = get_node("joinButton")
 	btn.disabled = true
 
-
 func _on_backButton_button_down():
-	pass
+	get_tree().change_scene("res://Scenes/Menus/MainMenu.tscn")

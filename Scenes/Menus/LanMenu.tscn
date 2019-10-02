@@ -8,26 +8,27 @@
 script = ExtResource( 1 )
 
 [node name="hostButton" type="Button" parent="."]
-margin_left = 1422.0
-margin_top = 263.0
-margin_right = 1858.0
-margin_bottom = 363.0
+margin_left = 1433.1
+margin_top = 919.967
+margin_right = 1869.1
+margin_bottom = 1019.97
 custom_fonts/font = ExtResource( 2 )
 text = "Host"
 
 [node name="joinButton" type="Button" parent="."]
-margin_left = 1424.0
-margin_top = 381.0
-margin_right = 1862.0
-margin_bottom = 483.0
+margin_left = 1420.3
+margin_top = 257.009
+margin_right = 1858.3
+margin_bottom = 359.009
 custom_fonts/font = ExtResource( 2 )
+disabled = true
 text = "Join"
 
 [node name="backButton" type="Button" parent="."]
-margin_left = 1429.0
-margin_top = 912.0
-margin_right = 1862.0
-margin_bottom = 1014.0
+margin_left = 1749.45
+margin_top = 5.39555
+margin_right = 1868.45
+margin_bottom = 107.396
 custom_fonts/font = ExtResource( 2 )
 text = "Back"
 

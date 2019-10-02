@@ -11,14 +11,11 @@ var serverName
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
 	if(get_tree().multiplayer.is_network_server()):
 		listenForLFGsocket = PacketPeerUDP.new()
 		listenForLFGsocket.listen(listenPort)
-		
-		#var network = get_tree().multiplayer
-		#network.connect("peer_connected",self,"_peer_connected")
-		#network.connect("peer_disconnected",self,"_peer_disconnected")
 		
 		var btnStart = get_node("startButton")
 		btnStart.disabled = false
@@ -56,6 +53,13 @@ func _player_disconnected(id):
 	globals.otherPlayerNames.erase(id)
 	updateUIplayers()
 
+func _server_disconnected():
+	print("Server disconnected!")
+	globals.otherPlayers = []
+	globals.otherPlayerNames = {}
+	hide()
+	get_tree().change_scene("res://Scenes/Menus/LanMenu.tscn")
+
 #Sends the client data to server
 puppet func getClientDataPuppet():
 	rpc_id(0, "setClientDataMaster", str(get_tree().multiplayer.get_network_unique_id()), globals.playerName)
@@ -77,7 +81,6 @@ func updateUIplayers():
 	#Call UI update on server and clients
 	rpc("updateUIplayersPuppet",players)
 		
-
 #Update players UI on the server and clients
 remotesync func updateUIplayersPuppet(var players):
 	var i = 1
