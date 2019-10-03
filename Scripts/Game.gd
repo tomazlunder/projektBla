@@ -24,6 +24,9 @@ func pre_configure_game():
 		rpc("ready_to_start", get_tree().get_network_unique_id())
 	else:
 		players_ready.append(get_tree().get_network_unique_id())
+		
+	if(globals.players.size() == 1):
+		post_configure_game()
 
 master func ready_to_start(id):
 	assert(get_tree().is_network_server())
