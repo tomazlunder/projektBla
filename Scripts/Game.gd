@@ -4,6 +4,9 @@ var players_ready = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
 	pre_configure_game()
 	pass
 	
@@ -31,3 +34,15 @@ master func ready_to_start(id):
 remotesync func post_configure_game():
 	print("Starting game!")
 	get_tree().set_pause(false) # Unpause and unleash the game!
+	
+func _player_disconnected(id):
+	print("Player disconnected (PID:"+str(id)+")")
+	globals.playerNames.erase(id)
+	globals.players.erase(id)
+	
+func _server_disconnected():
+	print("Server disconnected!")
+	globals.players = []
+	globals.playerNames = {}
+	hide()
+	get_tree().change_scene("res://Scenes/Menus/LanMenu.tscn")

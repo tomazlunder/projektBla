@@ -1,6 +1,9 @@
 extends Node2D
 
 func _ready():
+	if(is_network_master()):
+		#get_tree().get_node("Camera2D").add_child(self)
+		get_node("Camera2D").current = true;
 	pass # Replace with function body.
 
 puppet func setPosition(pos):
@@ -33,7 +36,6 @@ func _process(delta):
 		
 		#Move our local player
 		translate(Vector2(moveByX, moveByY))
-		
 		
 		#if Input.is_key_pressed(KEY_Q):
 		#	if is_network_server():
