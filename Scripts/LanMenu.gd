@@ -82,11 +82,8 @@ func _on_hostButton_button_down():
 		
 	get_tree().set_network_peer(host)
 	
-	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
-	get_tree().get_root().add_child(lobby)
+	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 	hide()
-	
-	return
 
 func _on_lanSearchTimeout_timeout():
 	listenSocket.close()
@@ -126,9 +123,6 @@ func connectToIP(var ip):
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip,gamePort)
 	get_tree().set_network_peer(host)
-	#var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
-	#get_tree().get_root().add_child(lobby)
-	#hide()
 	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 
 func _on_gameItemList_item_selected(index):

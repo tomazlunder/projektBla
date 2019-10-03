@@ -12,6 +12,9 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	
+	globals.players.append(get_tree().get_network_unique_id())
+	globals.playerNames[get_tree().get_network_unique_id()] = globals.playerName
+	
 	if(get_tree().multiplayer.is_network_server()):
 		listenForLFGsocket = PacketPeerUDP.new()
 		listenForLFGsocket.listen(listenPort)
@@ -43,38 +46,35 @@ func _player_connected(id):
 	else:
 		print("Connected to host")
 		
-	globals.otherPlayers.append(id)
+	globals.players.append(id)
 	
 func _player_disconnected(id):
 	print("Player disconnected from server (uID: "+str(id)+")")
-	globals.otherPlayers.erase(id)
-	globals.otherPlayerNames.erase(id)
+	globals.players.erase(id)
+	globals.playerNames.erase(id)
 	updateUIplayers()
 
 func _server_disconnected():
 	print("Server disconnected!")
-	globals.otherPlayers = []
-	globals.otherPlayerNames = {}
+	globals.players = []
+	globals.playerNames = {}
 	hide()
 	get_tree().change_scene("res://Scenes/Menus/LanMenu.tscn")
 
 #Sends the client data to server
 func _connected_ok():
-	rpc("setClientDataMaster", str(get_tree().multiplayer.get_network_unique_id()), globals.playerName)
+	rpc("setClientDataMaster", get_tree().multiplayer.get_network_unique_id(), globals.playerName)
 	
 #Recieves client data
 master func setClientDataMaster(var id, var name):
-	globals.otherPlayerNames[id] = name
+	globals.playerNames[id] = name
 	updateUIplayers()
 
 #Prepares data needed for UI update
 func updateUIplayers():
-	var i = 2
 	var players = []
-	players.append(globals.playerName)
-	for id in globals.otherPlayers:
-		players.append(globals.otherPlayerNames[str(id)])
-		i = i+1
+	for id in globals.players:
+		players.append(globals.playerNames[id])
 	
 	#Call UI update on server and clients
 	rpc("updateUIplayersPuppet",players)

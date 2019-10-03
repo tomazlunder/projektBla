@@ -1,5 +1,6 @@
 extends Node
 
 var playerName = ""
-var otherPlayers = []
-var otherPlayerNames = {}
+
+var players = []
+var playerNames = {}
