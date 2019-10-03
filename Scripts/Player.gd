@@ -6,7 +6,7 @@ func _ready():
 		$NameLabel.hide()
 	else:
 		var playerName = globals.playerNames[int(name)]
-		var size = $NameLabel.get_font("font").get_string_size(playerName)
+		#var size = $NameLabel.get_font("font").get_string_size(playerName)
 		$NameLabel.text = playerName
 
 puppet func setPosition(newPosition):
@@ -86,10 +86,15 @@ func _process(delta):
 			lastAnim = "walk"
 			direction = -1
 			
-		if(moved.y < 0 && moved.x == 0):
+		if(moved.y < 0 && moved.x == 0 && lastAnim != "walkAway"):
 			$AnimatedSprite.play("walkAway")
 			lastAnim = "walkAway"
 			direction = 0
+			
+		if(moved.y > 0 && moved.x == 0):
+			$AnimatedSprite.play("walk")
+			lastAnim = "walk"
+			direction = 1
 			
 	oldPosition = position
 	
