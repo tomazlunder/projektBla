@@ -13,8 +13,6 @@ var gamePort = 17703
 
 var addedToList = false
 
-var selectedGame = -1
-
 func _ready():
 	randomize()
 	var randomPlayerNum = rand_range(10000, 99999)
@@ -128,9 +126,10 @@ func connectToIP(var ip):
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip,gamePort)
 	get_tree().set_network_peer(host)
-	var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
-	get_tree().get_root().add_child(lobby)
-	hide()
+	#var lobby = preload("res://Scenes/Menus/LanLobby.tscn").instance()
+	#get_tree().get_root().add_child(lobby)
+	#hide()
+	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 
 func _on_gameItemList_item_selected(index):
 	var btn = get_node("joinButton")

@@ -6,8 +6,6 @@ var replySocket = PacketPeerUDP.new()
 var listenPort = 17702
 var replyPort = 17701
 
-var serverName
-
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -100,3 +98,7 @@ remotesync func startGame():
 #Start button is only enabled for server
 func _on_startButton_button_down():
 	rpc("startGame")
+
+func _on_backButton_button_down():
+	get_tree().set_network_peer(null)
+	get_tree().change_scene("res://Scenes/Menus/LanMenu.tscn")

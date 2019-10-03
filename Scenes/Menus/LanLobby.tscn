@@ -25,6 +25,14 @@ custom_fonts/font = ExtResource( 2 )
 disabled = true
 text = "Start (server)"
 
+[node name="backButton" type="Button" parent="."]
+margin_left = 1705.0
+margin_top = 31.0
+margin_right = 1808.0
+margin_bottom = 123.0
+custom_fonts/font = ExtResource( 2 )
+text = "BACK"
+
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
@@ -32,6 +40,7 @@ custom_fonts/font = ExtResource( 3 )
 text = "LAN LOBBY"
 
 [node name="playersVbox" type="VBoxContainer" parent="."]
+editor/display_folded = true
 margin_left = 72.0
 margin_top = 220.0
 margin_right = 1441.0
@@ -109,3 +118,4 @@ custom_fonts/font = ExtResource( 2 )
 text = "EMPTY"
 
 [connection signal="button_down" from="startButton" to="." method="_on_startButton_button_down"]
+[connection signal="button_down" from="backButton" to="." method="_on_backButton_button_down"]
