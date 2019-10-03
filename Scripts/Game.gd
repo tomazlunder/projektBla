@@ -18,27 +18,15 @@ func pre_configure_game():
 		add_child(player)
 	
 	print("pre configured game")
-	
-	if not get_tree().is_network_server():
-		# Tell server we are ready to start
-		rpc("ready_to_start", get_tree().get_network_unique_id())
-	else:
-		players_ready.append(get_tree().get_network_unique_id())
-		
-	if(globals.players.size() == 1):
-		post_configure_game()
+	rpc("ready_to_start", get_tree().get_network_unique_id())
 
 master func ready_to_start(id):
-	assert(get_tree().is_network_server())
-
 	print("client done preconfiguring ("+str(id)+")")
 
 	if not id in players_ready:
 		players_ready.append(id)
 	if players_ready.size() == globals.players.size():
 		rpc("post_configure_game")
-		#for player in globals.players:
-			#rpc_id(player, "post_configure_game()")
 		
 remotesync func post_configure_game():
 	print("Starting game!")
