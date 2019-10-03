@@ -88,6 +88,9 @@ remotesync func updateUIplayersPuppet(var players):
 		if players.size() >= i:
 			label.text = players[i-1]
 		i+=1
+		
+puppet func updatePlayerNamesPuppet(var names):
+	globals.playerNames = names
 
 #Starts the game for the server and clients
 remotesync func startGame():
@@ -96,6 +99,7 @@ remotesync func startGame():
 	
 #Start button is only enabled for server
 func _on_startButton_button_down():
+	rpc("updatePlayerNamesPuppet", globals.playerNames)
 	rpc("startGame")
 
 func _on_backButton_button_down():
