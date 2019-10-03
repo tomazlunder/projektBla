@@ -15,6 +15,9 @@ func _ready():
 		otherPlayer.set_network_master(i)
 		add_child(otherPlayer)
 
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

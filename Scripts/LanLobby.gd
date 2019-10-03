@@ -10,6 +10,7 @@ func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	get_tree().connect("connected_to_server", self, "_connected_ok")
 	
 	if(get_tree().multiplayer.is_network_server()):
 		listenForLFGsocket = PacketPeerUDP.new()
@@ -43,7 +44,6 @@ func _player_connected(id):
 		print("Connected to host")
 		
 	globals.otherPlayers.append(id)
-	rpc_id(id,"getClientDataPuppet")
 	
 func _player_disconnected(id):
 	print("Player disconnected from server (uID: "+str(id)+")")
@@ -59,14 +59,14 @@ func _server_disconnected():
 	get_tree().change_scene("res://Scenes/Menus/LanMenu.tscn")
 
 #Sends the client data to server
-puppet func getClientDataPuppet():
-	rpc_id(0, "setClientDataMaster", str(get_tree().multiplayer.get_network_unique_id()), globals.playerName)
+func _connected_ok():
+	rpc("setClientDataMaster", str(get_tree().multiplayer.get_network_unique_id()), globals.playerName)
 	
 #Recieves client data
 master func setClientDataMaster(var id, var name):
 	globals.otherPlayerNames[id] = name
 	updateUIplayers()
-	
+
 #Prepares data needed for UI update
 func updateUIplayers():
 	var i = 2
@@ -91,8 +91,7 @@ remotesync func updateUIplayersPuppet(var players):
 
 #Starts the game for the server and clients
 remotesync func startGame():
-	var game = preload("res://Scenes/Game/Game.tscn").instance()
-	get_tree().get_root().add_child(game)
+	get_tree().change_scene("res://Scenes/Game/Game.tscn")
 	hide()
 	
 #Start button is only enabled for server
