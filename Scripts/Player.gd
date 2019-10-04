@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 var maxSpeed = 3.5
 var showRange = false
@@ -59,7 +59,11 @@ func _process(delta):
 			#Tell other computers about our new position so they can update
 			rpc_unreliable("setPosition",newPos)
 			#Move our local player
-			translate(move)
+			#translate(move)
+			move_and_collide(move)
+			
+			#Tell other computers about our new position so they can update
+			#rpc_unreliable("setPosition",newPos)
 		else:
 			if(lastAnim == "walkAway"):
 				$AnimatedSprite.play("idleAway")
@@ -105,7 +109,7 @@ func _process(delta):
 		if(showRange):
 			var tileX = position.x/32
 			var tileY = position.y/32
-			$greylineRange3.global_position = Vector2(int(tileX)*32+16*retunSign(tileX),int(tileY)*32+16*retunSign(tileY))
+			$greylineRange3.global_position = Vector2((int(tileX)+1)*32+16*retunSign(tileX),(int(tileY)+1)*32+16*retunSign(tileY))
 			$greylineRange3.visible = true
 		
 		if(Input.is_action_just_pressed("ui_range")):
@@ -113,8 +117,7 @@ func _process(delta):
 			if(showRange):
 				var tileX = position.x/32
 				var tileY = position.y/32
-				$greylineRange3.global_position = Vector2((int(tileX)*32+16),(int(tileY)*32+16))
-
+				$greylineRange3.global_position = Vector2((int(tileX)+1)*32+16*retunSign(tileX),(int(tileY)+1)*32+16*retunSign(tileY))
 			else:
 				$greylineRange3.visible = false
 		
