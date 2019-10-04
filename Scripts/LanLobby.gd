@@ -31,7 +31,7 @@ func _process(delta):
 		var array_bytes = listenForLFGsocket.get_packet()
 		print("something came:" + array_bytes.get_string_from_ascii())
 		
-		var msg = "I AM SERVER," + globals.playerName
+		var msg = "I AM SERVER," + globals.playerName +","+str(globals.players.size())
 		var packet = msg.to_ascii()
 		
 		replySocket = PacketPeerUDP.new()

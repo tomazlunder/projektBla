@@ -1,8 +1,8 @@
 extends Node2D
 
-var gameIPs = []
-var gameNames = []
-var gamePlayers = []
+var serverIPs = []
+var serverNames = []
+var serverNumPlayers = []
 
 var listenSocket = PacketPeerUDP.new()
 var pollSocket = PacketPeerUDP.new()
@@ -36,16 +36,16 @@ func _process(delta):
 		
 		#When a proper reply is recieved, add server information into arrays
 		if(arrayData[0] == "I AM SERVER"):
-			gameIPs.append(ip)
-			gameNames.append(arrayData[1])
-			gamePlayers.append("test/4")
+			serverIPs.append(ip)
+			serverNames.append(arrayData[1])
+			serverNumPlayers.append(int(arrayData[2]))
 	
 func search_for_games():
 	print("Searching for games...")
 	addedToList = false
-	gameIPs = []
-	gameNames = []
-	gamePlayers = []
+	serverIPs = []
+	serverNames = []
+	serverNumPlayers = []
 	
 	var label = get_node('noGamesFoundLabel')
 	label.hide()
@@ -91,12 +91,17 @@ func _on_lanSearchTimeout_timeout():
 	var itemList = get_node("gameItemList")
 	itemList.clear()
 			
-	for i in gameIPs.size():
-		var item = gameIPs[i] + " | " + gameNames[i] + " | " + gamePlayers[i]
-		print("added item to list")
+	for i in serverIPs.size():
+		var item
+		item = rightSpacePad(serverIPs[i],16) +"|"
+		item+= rightSpacePad((serverNames[i]+"'s game"), 40)+"|"
+		item+= leftSpacePad(str(serverNumPlayers[i]) +"/"+str(constants.maxPlayers),5)
+		if(serverNumPlayers[i] >= constants.maxPlayers):
+			item += " (FULL)"
+		#print("added item to list")
 		itemList.add_item(str(item))
 		
-	if gameIPs.size() == 0:
+	if serverIPs.size() == 0:
 		var label = get_node('noGamesFoundLabel')
 		label.show()
 		
@@ -109,7 +114,7 @@ func _on_joinButton_button_down():
 		return
 		
 	print("Joining network")
-	var ip = gameIPs[itemList.get_selected_items()[0]]
+	var ip = serverIPs[itemList.get_selected_items()[0]]
 	
 	get_tree().set_network_peer(null) 
 	var host = NetworkedMultiplayerENet.new()
@@ -126,15 +131,27 @@ func connectToIP(var ip):
 	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 
 func _on_gameItemList_item_selected(index):
-	var btn = get_node("joinButton")
-	btn.disabled = false
-	
+	if(serverNumPlayers[index] < constants.maxPlayers):
+		var btn = $joinButton
+		btn.disabled = false
 
 func _on_gameItemList_nothing_selected():
-	var gameList = get_node("gameItemList")
-	
-	var btn = get_node("joinButton")
+	var btn = $joinButton
 	btn.disabled = true
 
 func _on_backButton_button_down():
 	get_tree().change_scene("res://Scenes/Menus/MainMenu.tscn")
+	
+func leftSpacePad(var string, var total):
+	var newString = string
+	while(newString.length() < total):
+		newString = " " + newString
+	return newString
+	
+func rightSpacePad(var string, var total):
+	var newString = string
+	while(newString.length() < total):
+		newString+= " "
+	return newString
+	
+	

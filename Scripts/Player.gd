@@ -1,5 +1,8 @@
 extends Node2D
 
+var maxSpeed = 3.5
+var showRange = false
+
 func _ready():
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -25,11 +28,10 @@ var lastAnim = "idle"
 var direction = 0
 
 func _process(delta):
-	var moveByX = 0
-	var moveByY = 0
-	var maxSpeed = 3.5
-	
+	### PART1 - Movement and animation
 	if(is_network_master()):
+		var moveByX = 0
+		var moveByY = 0
 		if Input.is_action_pressed("ui_left"):
 			$AnimatedSprite.flip_h = true
 			moveByX = -1
@@ -98,7 +100,25 @@ func _process(delta):
 			
 	oldPosition = position
 	
-		#if Input.is_key_pressed(KEY_Q):
-		#	if is_network_server():
-		#		shutItDown()
+	#PART2 Other actions
+	if(is_network_master()):
+		if(showRange):
+			var tileX = position.x/32
+			var tileY = position.y/32
+			$greylineRange3.global_position = Vector2(int(tileX)*32+16*retunSign(tileX),int(tileY)*32+16*retunSign(tileY))
+			$greylineRange3.visible = true
 		
+		if(Input.is_action_just_pressed("ui_range")):
+			showRange = !showRange
+			if(showRange):
+				var tileX = position.x/32
+				var tileY = position.y/32
+				$greylineRange3.global_position = Vector2((int(tileX)*32+16),(int(tileY)*32+16))
+
+			else:
+				$greylineRange3.visible = false
+		
+func retunSign(var num):
+	if num >= 0: return 1
+	if num < 0: return -1
+	else: print("returnSignWrongInput!!!")
