@@ -36,3 +36,6 @@ animation = "idle"
 position = Vector2( 33.6644, 52.7156 )
 shape = SubResource( 1 )
 
+[node name="FeetPosition" type="Position2D" parent="."]
+position = Vector2( 33.9161, 53.6714 )
+
