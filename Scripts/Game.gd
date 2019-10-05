@@ -23,8 +23,7 @@ func pre_configure_game():
 		var player = preload("res://Scenes/Game/Player/Player.tscn").instance()
 		player.set_name(str(pid))
 		player.set_network_master(pid)
-		$TileMapObjects.add_child(player)
-		var bla = $TileMapObjects
+		$YSort.add_child(player)
 	
 	print("pre configured game")
 	rpc("ready_to_start", get_tree().get_network_unique_id())
