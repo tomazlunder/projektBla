@@ -1,0 +1,40 @@
+[gd_resource type="TileSet" load_steps=4 format=2]
+
+[ext_resource path="res://Assets/TileSet/forestTileset.png" type="Texture" id=1]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 25.5641, 53.8438, 38.4242, 54.2457, 40.0317, 59.4701, 23.9566, 59.4701 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 31.2879, 50.6288, 41.3348, 54.2457, 32.0916, 59.0682, 21.6428, 54.2457 )
+
+[resource]
+0/name = "Trees64"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, -64 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 288, 384, 256 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 64, 64 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [ {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, -64 )
+}, {
+"autotile_coord": Vector2( 5, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+

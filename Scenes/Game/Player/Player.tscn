@@ -18,29 +18,25 @@ texture = ExtResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = -46.9905
-margin_top = -21.7341
-margin_right = 113.009
-margin_bottom = 0.265945
+margin_left = -79.8778
+margin_top = -69.9894
+margin_right = 80.1217
+margin_bottom = -47.9893
 custom_fonts/font = ExtResource( 3 )
 text = "NAME"
 align = 1
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 32, 32 )
+position = Vector2( 0, -22 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 4 )
 animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 33.6644, 52.7156 )
 shape = SubResource( 1 )
 
-[node name="FeetPosition" type="Position2D" parent="."]
-position = Vector2( 33.9161, 53.6714 )
-
 [node name="CenterPosition" type="Position2D" parent="."]
-position = Vector2( 33.9227, 37.7094 )
+position = Vector2( 0, -13 )
 
 [node name="MyStuff" type="Node" parent="."]
 

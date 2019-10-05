@@ -41,18 +41,18 @@ func movement():
 	
 	var moveDir = Vector2(0,0)
 	var run = false
-	if Input.is_action_pressed("ui_left"): 
-		moveDir.x += -1
-		lastDirPressed = Vector2(-1,0)
-	if Input.is_action_pressed("ui_right"): 
-		moveDir.x += 1;
-		lastDirPressed = Vector2(1,0)
 	if Input.is_action_pressed("ui_up"):
 		moveDir.y += -1;
 		lastDirPressed = Vector2(0,-1)
 	if Input.is_action_pressed("ui_down"):
 		moveDir.y += 1;
 		lastDirPressed = Vector2(0,1)
+	if Input.is_action_pressed("ui_left"): 
+		moveDir.x += -1
+		lastDirPressed = Vector2(-1,0)
+	if Input.is_action_pressed("ui_right"): 
+		moveDir.x += 1;
+		lastDirPressed = Vector2(1,0)
 	if Input.is_action_pressed("ui_run"):
 		run = true
 			
@@ -115,17 +115,19 @@ func showRange():
 func attack():
 	if(Input.is_action_just_pressed("ui_attack") && $SpellTimeout.is_stopped()):
 		#print("FIRE!")
+		$SpellTimeout.start()
 		rpc_unreliable("spawnFireball",get_tree().get_network_unique_id(), lastDirPressed)
 		
 remotesync func spawnFireball(var playerID, var directionInput):
 		if(lastAnim != "walkAway" && lastAnim != "idleAway"):
 			AnimatedSprite.play("cast")
 		lastAnim = "cast"
-		$SpellTimeout.start()
 	
 		var fireBall = load("res://Scenes/Game/Fireball.tscn").instance()
-		fireBall.global_position = $CenterPosition.global_position + directionInput.normalized()*16	
-		fireBall.global_position += Vector2(-32,-32)
+		fireBall.global_position = global_position
+		if(directionInput.x != 0 || directionInput.y < 0): fireBall.global_position += directionInput.normalized()*16
+		if(directionInput.y >= 0): fireBall.global_position.y += 0.1
+		#fireBall.global_position += Vector2(-64,-64)
 		fireBall.direction = directionInput
 		fireBall.playerID = playerID
 		get_parent().add_child(fireBall)
