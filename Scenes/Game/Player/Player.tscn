@@ -39,3 +39,12 @@ shape = SubResource( 1 )
 [node name="FeetPosition" type="Position2D" parent="."]
 position = Vector2( 33.9161, 53.6714 )
 
+[node name="CenterPosition" type="Position2D" parent="."]
+position = Vector2( 33.9227, 37.7094 )
+
+[node name="MyStuff" type="Node" parent="."]
+
+[node name="SpellTimeout" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpellTimeout" to="." method="_on_SpellTimeout_timeout"]
