@@ -73,14 +73,7 @@ func _on_hostButton_button_down():
 	listenSocket.close()
 	pollSocket.close()
 	
-	print("Hosting network")
-	var host = NetworkedMultiplayerENet.new()
-	var res = host.create_server(gamePort,10)
-	if res != OK:
-		print("Error creating server")
-		return
-		
-	get_tree().set_network_peer(host)
+	netcode.create_server(true)
 	
 	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 	hide()
@@ -109,6 +102,7 @@ func _on_lanSearchTimeout_timeout():
 
 
 func _on_joinButton_button_down():
+	#Valid server sellection check
 	var itemList = get_node("gameItemList")
 	if itemList.get_selected_items().size() == 0:
 		return
@@ -117,17 +111,7 @@ func _on_joinButton_button_down():
 	var ip = serverIPs[itemList.get_selected_items()[0]]
 	
 	get_tree().set_network_peer(null) 
-	var host = NetworkedMultiplayerENet.new()
-	host.create_client(ip,gamePort)
-	get_tree().set_network_peer(host)
-	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
-	
-func connectToIP(var ip):
-	print("Joining network")
-
-	var host = NetworkedMultiplayerENet.new()
-	host.create_client(ip,gamePort)
-	get_tree().set_network_peer(host)
+	netcode.join_server(ip)
 	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 
 func _on_gameItemList_item_selected(index):

@@ -22,7 +22,7 @@ func _ready():
 		$Camera2D.current = true;
 		$NameLabel.hide()
 	else:
-		var playerName = globals.playerNames[int(name)]
+		var playerName = netcode.playerNames[int(name)]
 		#var size = $NameLabel.get_font("font").get_string_size(playerName)
 		$NameLabel.text = playerName
 

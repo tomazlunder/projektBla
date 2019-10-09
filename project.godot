@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 globals="*res://Scripts/globals.gd"
 constants="*res://Scripts/constants.gd"
+netcode="*res://Scripts/netcode.gd"
 
 [display]
 

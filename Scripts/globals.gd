@@ -1,7 +1,7 @@
 extends Node
 
 #Networking
-var playerName = ""
+var playerName = "DefaultName"
 var players = []
 var playerNames = {}
 
