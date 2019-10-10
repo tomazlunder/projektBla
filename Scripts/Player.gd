@@ -98,16 +98,16 @@ func animation():
 		
 func showRange():
 	if(showRange):
-		var tileX = FeetPosition.global_position.x/32
-		var tileY = FeetPosition.global_position.y/32
+		var tileX = position.x/32
+		var tileY = position.y/32
 		$greylineRange3.global_position = Vector2(int(tileX)*32+16*retunSign(tileX),int(tileY)*32+16*retunSign(tileY))
 		$greylineRange3.visible = true
 		
 	if(Input.is_action_just_pressed("ui_range")):
 		showRange = !showRange
 		if(showRange):
-			var tileX = FeetPosition.global_position.x/32
-			var tileY = FeetPosition.global_position.y/32
+			var tileX = position.x/32
+			var tileY = position.y/32
 			$greylineRange3.global_position = Vector2(int(tileX)*32+16*retunSign(tileX),int(tileY)*32+16*retunSign(tileY))
 		else:
 			$greylineRange3.visible = false
