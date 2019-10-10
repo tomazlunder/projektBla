@@ -17,7 +17,7 @@ func pre_configure_game():
 	
 	#Create all players
 	for pid in netcode.players:
-		var player = preload("res://Scenes/Game/Player/Player.tscn").instance()
+		var player = preload("res://Scenes/Game/Player.tscn").instance()
 		player.set_name(str(pid))
 		player.set_network_master(pid)
 		$YSort.add_child(player)
