@@ -16,7 +16,8 @@ var oldPosition = position
 var lastAnim = "idle"
 
 func _ready():
-	MyHealthResource.MaxHealth=100
+	MyHealthResource.maxHealth=100
+	MyHealthResource.health=100
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -30,10 +31,15 @@ puppet func setPosition(newPosition):
 	position = newPosition
 
 func _process(delta):
+	if Input.is_key_pressed(KEY_9):
+		MyHealthResource.TakeDamage(1)
+	if Input.is_key_pressed(KEY_0):
+		MyHealthResource.HealDamage(1)
 	if(is_network_master()): movement()
 	animation()
 	if(is_network_master()): attack()
 	if(is_network_master()): showRange()
+	if(is_network_master()): updateHud()
 	oldPosition = position
 
 func movement():
@@ -131,6 +137,10 @@ remotesync func spawnFireball(var playerID, var directionInput):
 		fireBall.direction = directionInput
 		fireBall.playerID = playerID
 		get_parent().add_child(fireBall)
+		
+func updateHud():
+	$HUD/Interface/HealthBar.updateValue(float(MyHealthResource.health) / float(MyHealthResource.maxHealth))
+	#$HUD/Interface/HealthBar.value = float(MyHealthResource.health) / float(MyHealthResource.maxHealth)
 
 func retunSign(var num):
 	if num >= 0: return 1

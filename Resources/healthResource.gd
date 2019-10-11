@@ -1,16 +1,20 @@
 extends Resource
 
-export var MaxHealth = 100
-var Health = MaxHealth
+var maxHealth
+var health
 
 func TakeDamage(amount):
-	if(amount < 0): print("Negative damage!"); return;
-	var math = Health - amount
-	if math > 0: Health = math
-	else: Health = 0
+	if(amount < 0): 
+		print("Negative damage!")
+		return
+	var math = health - amount
+	if math > 0: health = math
+	else: health = 0
 
 func HealDamage(amount):
-	if(amount < 0): print("Negative heal!"); return;
-	var math = Health + amount
-	if math < MaxHealth: Health = math
-	else: Health = MaxHealth
+	if(amount < 0): 
+		print("Negative heal!")
+		return
+	var math = health + amount
+	if math < maxHealth: health = math
+	else: health = maxHealth
