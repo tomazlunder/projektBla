@@ -4,7 +4,6 @@
 [ext_resource path="res://Assets/Particles/fireBallMaterial1.tres" type="Material" id=2]
 [ext_resource path="res://Assets/Particles/fireBallMaterial2.tres" type="Material" id=3]
 
-
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
 emission_sphere_radius = 2.0

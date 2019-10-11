@@ -13,7 +13,6 @@ var lastDirPressed = Vector2(1,0)
 
 #Used mostly by non masters to change animations
 var oldPosition = position
-var lastAnim = "idle"
 
 func _ready():
 	MyHealthResource.maxHealth=100
@@ -24,8 +23,8 @@ func _ready():
 		$NameLabel.hide()
 	else:
 		var playerName = netcode.playerNames[int(name)]
-		#var size = $NameLabel.get_font("font").get_string_size(playerName)
 		$NameLabel.text = playerName
+		$HUD/Interface.hide()
 
 puppet func setPosition(newPosition):
 	position = newPosition
@@ -72,35 +71,31 @@ func movement():
 		rpc_unreliable("setPosition",position)
 
 func animation():
+	var currentAnimation = AnimatedSprite.animation
+	
 	if(!$SpellTimeout.is_stopped()): return
 	
 	var moved = position - oldPosition
 	
-	if(moved.length() == 0 && lastAnim != "idle" && lastAnim != "idleAway"):
-		if(lastAnim == "walkAway"): 
+	if(moved.length() == 0 && currentAnimation != "idle" && currentAnimation != "idleAway"):
+		if(currentAnimation == "walkAway"): 
 			AnimatedSprite.play("idleAway")
-			lastAnim = "idleAway"
 		else: 
 			AnimatedSprite.play("idle")
-			lastAnim = "idle"
 	
-	if(moved.x > 0 && lastAnim != "walk_right"):
+	if(moved.x > 0 && currentAnimation != "walk_right"):
 		AnimatedSprite.play("walk")
 		AnimatedSprite.flip_h = false
-		lastAnim = "walk_right"
 	
-	if(moved.x < 0 && lastAnim != "walk_left"):
+	if(moved.x < 0 && currentAnimation != "walk_left"):
 		AnimatedSprite.play("walk")
 		AnimatedSprite.flip_h = true
-		lastAnim = "walk_left"
 			
-	if(moved.y < 0 && moved.x == 0 && lastAnim != "walkAway"):
+	if(moved.y < 0 && moved.x == 0 && currentAnimation != "walkAway"):
 		AnimatedSprite.play("walkAway")
-		lastAnim = "walkAway"
 	
-	if(moved.y > 0 && moved.x == 0):
+	if(moved.y > 0 && moved.x == 0 && currentAnimation != "walk"):
 		AnimatedSprite.play("walk")
-		lastAnim = "walk"
 		
 func showRange():
 	if(showRange):
@@ -125,22 +120,21 @@ func attack():
 		rpc_unreliable("spawnFireball",get_tree().get_network_unique_id(), lastDirPressed)
 		
 remotesync func spawnFireball(var playerID, var directionInput):
-		if(lastAnim != "walkAway" && lastAnim != "idleAway"):
+		var currentAnimation = AnimatedSprite.animation
+	
+		if(currentAnimation != "walkAway" && currentAnimation != "idleAway"):
 			AnimatedSprite.play("cast")
-		lastAnim = "cast"
 	
 		var fireBall = load("res://Scenes/Game/Fireball.tscn").instance()
 		fireBall.global_position = global_position
 		if(directionInput.x != 0 || directionInput.y < 0): fireBall.global_position += directionInput.normalized()*16
 		if(directionInput.y >= 0): fireBall.global_position.y += 0.1
-		#fireBall.global_position += Vector2(-64,-64)
 		fireBall.direction = directionInput
 		fireBall.playerID = playerID
 		get_parent().add_child(fireBall)
 		
 func updateHud():
 	$HUD/Interface/HealthBar.updateValue(float(MyHealthResource.health) / float(MyHealthResource.maxHealth))
-	#$HUD/Interface/HealthBar.value = float(MyHealthResource.health) / float(MyHealthResource.maxHealth)
 
 func retunSign(var num):
 	if num >= 0: return 1
@@ -149,4 +143,3 @@ func retunSign(var num):
 
 func _on_SpellTimeout_timeout():
 	AnimatedSprite.play("idle")
-	lastAnim = "idle"
