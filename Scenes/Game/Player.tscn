@@ -45,7 +45,12 @@ position = Vector2( 0, -13 )
 one_shot = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="Interface" parent="HUD" instance=ExtResource( 5 )]
+
+[node name="StaimnaRegenTimeout" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="timeout" from="SpellTimeout" to="." method="_on_SpellTimeout_timeout"]

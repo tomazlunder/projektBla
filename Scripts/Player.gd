@@ -47,7 +47,10 @@ func _process(delta):
 	if(is_network_master()): attack()
 	if(is_network_master()): showRange()
 	if(is_network_master()): updateHud()
-	if(is_network_master()): MyManaResource.gainMana(1*delta)
+	if(is_network_master()): 
+		MyManaResource.gainMana(1*delta)
+		if($StaimnaRegenTimeout.time_left == 0):
+			MyStaminaResource.gainStamina(5*delta)
 	oldPosition = position
 
 func movement(delta):
@@ -69,6 +72,7 @@ func movement(delta):
 		lastDirPressed = Vector2(1,0)
 	if Input.is_action_pressed("ui_run"):
 		if(MyStaminaResource.useStamina(10 * delta)):
+			$StaimnaRegenTimeout.start()
 			run = true
 			
 	if(moveDir.length() != 0):
