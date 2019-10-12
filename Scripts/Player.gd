@@ -8,6 +8,8 @@ onready var AnimatedSprite=$AnimatedSprite
 onready var FeetPosition=$FeetPosition
 
 var MyHealthResource = globals.HealthResource.new()
+var MyManaResource = globals.ManaResource.new()
+var MyStaminaResource = globals.StaminaResource.new()
 
 var lastDirPressed = Vector2(1,0)
 
@@ -16,7 +18,13 @@ var oldPosition = position
 
 func _ready():
 	MyHealthResource.maxHealth=100
-	MyHealthResource.health=100
+	MyHealthResource.health= 100
+	
+	MyManaResource.maxMana = 100
+	MyManaResource.mana = 100
+	
+	MyStaminaResource.maxStamina = 100
+	MyStaminaResource.stamina = 100
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -34,14 +42,15 @@ func _process(delta):
 		MyHealthResource.TakeDamage(1)
 	if Input.is_key_pressed(KEY_0):
 		MyHealthResource.HealDamage(1)
-	if(is_network_master()): movement()
+	if(is_network_master()): movement(delta)
 	animation()
 	if(is_network_master()): attack()
 	if(is_network_master()): showRange()
 	if(is_network_master()): updateHud()
+	if(is_network_master()): MyManaResource.gainMana(1*delta)
 	oldPosition = position
 
-func movement():
+func movement(delta):
 	if(!$SpellTimeout.is_stopped()): return
 	
 	var moveDir = Vector2(0,0)
@@ -59,7 +68,8 @@ func movement():
 		moveDir.x += 1;
 		lastDirPressed = Vector2(1,0)
 	if Input.is_action_pressed("ui_run"):
-		run = true
+		if(MyStaminaResource.useStamina(10 * delta)):
+			run = true
 			
 	if(moveDir.length() != 0):
 		var move = moveDir.normalized()
@@ -116,8 +126,9 @@ func showRange():
 func attack():
 	if(Input.is_action_just_pressed("ui_attack") && $SpellTimeout.is_stopped()):
 		#print("FIRE!")
-		$SpellTimeout.start()
-		rpc_unreliable("spawnFireball",get_tree().get_network_unique_id(), lastDirPressed)
+		if(MyManaResource.useMana(20)):	
+			$SpellTimeout.start()
+			rpc_unreliable("spawnFireball",get_tree().get_network_unique_id(), lastDirPressed)
 		
 remotesync func spawnFireball(var playerID, var directionInput):
 		var currentAnimation = AnimatedSprite.animation
@@ -135,7 +146,9 @@ remotesync func spawnFireball(var playerID, var directionInput):
 		
 func updateHud():
 	$HUD/Interface/HealthBar.updateValue(float(MyHealthResource.health) / float(MyHealthResource.maxHealth))
-
+	$HUD/Interface/ManaBar.updateValue(float(MyManaResource.mana) / float(MyManaResource.maxMana))
+	$HUD/Interface/StaminaBar.updateValue(float(MyStaminaResource.stamina) / float(MyStaminaResource.maxStamina))
+	
 func retunSign(var num):
 	if num >= 0: return 1
 	if num < 0: return -1
