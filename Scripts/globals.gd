@@ -6,6 +6,3 @@ var players = []
 var playerNames = {}
 
 #Loading resources
-var HealthResource = preload("res://Resources/healthResource.gd")
-var ManaResource = preload("res://Resources/manaResource.gd")
-var StaminaResource = preload("res://Resources/staminaResource.gd")
