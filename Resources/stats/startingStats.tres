@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Resources/stats/CharacterStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+hp_max = 100.0
+hp_regen = 1.0
+hp = 100.0
+mana_max = 100.0
+mana_regen = 1.0
+mana = 100.0
+stamina_max = 100.0
+stamina_regen = 5.0
+stamina = 100.0
+walkSpeed = 90.0
+runSpeed = 210.0
+

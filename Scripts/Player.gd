@@ -5,11 +5,8 @@ var runSpeed = 3.5
 var showRange = false
 
 onready var AnimatedSprite=$AnimatedSprite
-onready var FeetPosition=$FeetPosition
 
-var MyHealthResource = globals.HealthResource.new()
-var MyManaResource = globals.ManaResource.new()
-var MyStaminaResource = globals.StaminaResource.new()
+var Stats : CharacterStats
 
 var lastDirPressed = Vector2(1,0)
 
@@ -17,14 +14,7 @@ var lastDirPressed = Vector2(1,0)
 var oldPosition = position
 
 func _ready():
-	MyHealthResource.maxHealth=100
-	MyHealthResource.health= 100
-	
-	MyManaResource.maxMana = 100
-	MyManaResource.mana = 100
-	
-	MyStaminaResource.maxStamina = 100
-	MyStaminaResource.stamina = 100
+	Stats = preload("res://Resources/stats/startingStats.tres")
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -39,18 +29,18 @@ puppet func setPosition(newPosition):
 
 func _process(delta):
 	if Input.is_key_pressed(KEY_9):
-		MyHealthResource.TakeDamage(1)
+		Stats.TakeDamage(1)
 	if Input.is_key_pressed(KEY_0):
-		MyHealthResource.HealDamage(1)
+		Stats.HealDamage(1)
 	if(is_network_master()): movement(delta)
 	animation()
 	if(is_network_master()): attack()
 	if(is_network_master()): showRange()
 	if(is_network_master()): updateHud()
 	if(is_network_master()): 
-		MyManaResource.gainMana(1*delta)
+		Stats.gainMana(1*delta)
 		if($StaimnaRegenTimeout.time_left == 0):
-			MyStaminaResource.gainStamina(5*delta)
+			Stats.gainStamina(5*delta)
 	oldPosition = position
 
 func movement(delta):
@@ -71,14 +61,14 @@ func movement(delta):
 		moveDir.x += 1;
 		lastDirPressed = Vector2(1,0)
 	if Input.is_action_pressed("ui_run"):
-		if(MyStaminaResource.useStamina(10 * delta)):
+		if(Stats.useStamina(10 * delta)):
 			$StaimnaRegenTimeout.start()
 			run = true
 			
 	if(moveDir.length() != 0):
 		var move = moveDir.normalized()
-		if(run): move = move * runSpeed
-		else: move = move * walkSpeed
+		if(run): move = move * Stats.runSpeed * delta
+		else: move = move * Stats.walkSpeed * delta
 		
 		move_and_collide(move)
 		#Tell other computers about our new position so they can update
@@ -130,7 +120,7 @@ func showRange():
 func attack():
 	if(Input.is_action_just_pressed("ui_attack") && $SpellTimeout.is_stopped()):
 		#print("FIRE!")
-		if(MyManaResource.useMana(20)):	
+		if(Stats.useMana(20)):	
 			$SpellTimeout.start()
 			rpc_unreliable("spawnFireball",get_tree().get_network_unique_id(), lastDirPressed)
 		
@@ -149,9 +139,9 @@ remotesync func spawnFireball(var playerID, var directionInput):
 		get_parent().add_child(fireBall)
 		
 func updateHud():
-	$HUD/Interface/HealthBar.updateValue(float(MyHealthResource.health) / float(MyHealthResource.maxHealth))
-	$HUD/Interface/ManaBar.updateValue(float(MyManaResource.mana) / float(MyManaResource.maxMana))
-	$HUD/Interface/StaminaBar.updateValue(float(MyStaminaResource.stamina) / float(MyStaminaResource.maxStamina))
+	$HUD/Interface/HealthBar.updateValue(float(Stats.hp) / float(Stats.hp_max))
+	$HUD/Interface/ManaBar.updateValue(float(Stats.mana) / float(Stats.mana_max))
+	$HUD/Interface/StaminaBar.updateValue(float(Stats.stamina) / float(Stats.stamina_max))
 	
 func retunSign(var num):
 	if num >= 0: return 1
