@@ -1,0 +1,220 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/GUI/VBoxStats.gd" type="Script" id=1]
+
+[node name="GridContainer" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 5.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="VBoxStats" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 958.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+
+[node name="HBoxTitles" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_right = 958.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxTitles"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Stat"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxTitles"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Level up"
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxTitles"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="HBoxHP_max" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_top = 18.0
+margin_right = 958.0
+margin_bottom = 32.0
+
+[node name="LabelStatName" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxHP_max"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "HP_max"
+
+[node name="LabelRankUp" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxHP_max"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rank up"
+
+[node name="LabelNextLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxHP_max"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="HBoxHP_regen" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_top = 36.0
+margin_right = 958.0
+margin_bottom = 50.0
+
+[node name="LabelStatName" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxHP_regen"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "HP_regen"
+
+[node name="LabelRankUp" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxHP_regen"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rank up"
+
+[node name="LabelNextLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxHP_regen"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="HBoxMana_max" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_top = 54.0
+margin_right = 958.0
+margin_bottom = 68.0
+
+[node name="LabelStatName" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxMana_max"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Mana_max"
+
+[node name="LabelRankUp" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxMana_max"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rank up"
+
+[node name="LabelNextLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxMana_max"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="HBoxMana_regen" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_top = 72.0
+margin_right = 958.0
+margin_bottom = 86.0
+
+[node name="LabelStatName" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxMana_regen"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Mana_regen"
+
+[node name="LabelRankUp" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxMana_regen"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rank up"
+
+[node name="LabelNextLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxMana_regen"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="HBoxStamina_max" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_top = 90.0
+margin_right = 958.0
+margin_bottom = 104.0
+
+[node name="LabelStatName" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxStamina_max"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Stamina_max"
+
+[node name="LabelRankUp" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxStamina_max"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rank up"
+
+[node name="LabelNextLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxStamina_max"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="HBoxStamina_regen" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxStats"]
+editor/display_folded = true
+margin_top = 108.0
+margin_right = 958.0
+margin_bottom = 122.0
+
+[node name="LabelStatName" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxStamina_regen"]
+margin_right = 316.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Stamina_regen"
+
+[node name="LabelRankUp" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxStamina_regen"]
+margin_left = 320.0
+margin_right = 636.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Rank up"
+
+[node name="LabelNextLevel" type="Label" parent="MarginContainer/HBoxContainer/VBoxStats/HBoxStamina_regen"]
+margin_left = 640.0
+margin_right = 958.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Next level"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+editor/display_folded = true
+margin_left = 962.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 958.0
+margin_bottom = 31.0
+text = "adesfasf
+"
+

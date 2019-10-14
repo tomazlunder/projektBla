@@ -8,6 +8,10 @@ signal health_depleted()
 signal mana_changed(new_mana, old_mana)
 signal stamina_changed(new_stamina, old_stamina)
 
+export var level : int
+export var experience : int
+export var attribute_points : int
+
 export var hp_max : float 
 export var hp_regen : float
 export var hp : float
