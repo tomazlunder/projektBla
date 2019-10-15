@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/GUI/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GUI/ManaBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/GUI/StaminaBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/GUI/AttributePanel.tscn" type="PackedScene" id=4]
 
 [node name="Interface" type="Control"]
 anchor_right = 1.0
@@ -24,11 +23,4 @@ margin_left = -1.25504
 margin_top = 131.781
 margin_right = 254.745
 margin_bottom = 163.781
-
-[node name="AttributePanel" parent="." instance=ExtResource( 4 )]
-visible = false
-margin_left = 396.193
-margin_top = 295.409
-margin_right = -718.807
-margin_bottom = -169.591
 

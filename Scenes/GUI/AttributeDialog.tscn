@@ -1,14 +1,16 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/GUI/AttributePanel.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/GUI/AttributeDialog.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/GUI/HBoxAttributeLine.tscn" type="PackedScene" id=2]
 
-[node name="AttributePanel" type="Panel"]
-editor/display_folded = true
+[node name="AttributeDialog" type="WindowDialog"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1120.0
-rect_min_size = Vector2( 800, 500 )
+margin_left = 499.653
+margin_top = 232.75
+margin_right = -540.347
+margin_bottom = -347.25
+rect_min_size = Vector2( 880, 500 )
 script = ExtResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -20,12 +22,12 @@ margin_right = 5.0
 margin_bottom = 5.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-margin_right = 800.0
-margin_bottom = 1080.0
+margin_right = 880.0
+margin_bottom = 500.0
 
 [node name="VBoxAttributes" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 margin_right = 458.0
-margin_bottom = 1080.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 
 [node name="HBoxTitles" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxAttributes"]
@@ -68,7 +70,7 @@ margin_bottom = 38.0
 editor/display_folded = true
 margin_left = 462.0
 margin_right = 800.0
-margin_bottom = 1080.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]

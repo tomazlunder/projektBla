@@ -1,13 +1,13 @@
-extends Panel
+extends WindowDialog
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var starting_position 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MySignals.connect("attribute_panel_open", self, "_togglePanel")
 	MySignals.connect("attributes_changed", self, "loadAttributes")
+	starting_position = get_position_in_parent()
+	
 func loadAttributes(Stats):	
 	var first = true
 	#Remove all children except for first (Collum titles of the table)
@@ -28,10 +28,5 @@ func _togglePanel(Stats):
 		hide()
 		return
 	
-	show()
+	popup_centered()
 	loadAttributes(Stats)
-	
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
