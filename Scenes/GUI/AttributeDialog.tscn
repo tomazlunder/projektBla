@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/GUI/AttributeDialog.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/GUI/HBoxAttributeLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Font/BEBAS/bebas_playerTag.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/GUI/HBoxAttributeLine.tscn" type="PackedScene" id=3]
 
 [node name="AttributeDialog" type="WindowDialog"]
 anchor_right = 1.0
@@ -36,10 +37,11 @@ margin_right = 458.0
 margin_bottom = 14.0
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxAttributes/HBoxTitles"]
-margin_right = 200.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 200, 0 )
+margin_right = 150.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 150, 22 )
 size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
 text = "Attribute"
 
 [node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/VBoxAttributes/HBoxTitles"]
@@ -47,6 +49,7 @@ margin_left = 204.0
 margin_right = 264.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 60, 0 )
+custom_fonts/font = ExtResource( 2 )
 text = "Value"
 
 [node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxAttributes/HBoxTitles"]
@@ -54,6 +57,7 @@ margin_left = 268.0
 margin_right = 328.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 60, 0 )
+custom_fonts/font = ExtResource( 2 )
 text = "Rank"
 
 [node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxAttributes/HBoxTitles"]
@@ -61,9 +65,10 @@ margin_left = 332.0
 margin_right = 458.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
 text = "RankUP"
 
-[node name="HBoxAttributeLine" parent="MarginContainer/HBoxContainer/VBoxAttributes" instance=ExtResource( 2 )]
+[node name="HBoxAttributeLine" parent="MarginContainer/HBoxContainer/VBoxAttributes" instance=ExtResource( 3 )]
 margin_top = 18.0
 margin_bottom = 38.0
 
