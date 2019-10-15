@@ -24,8 +24,20 @@ export var stamina_max : float
 export var stamina_regen : float
 export var stamina : float
 
-export var walkSpeed : float
-export var runSpeed : float
+export var speed_walk : float
+export var speed_run : float
+
+var rank_hp_max = 0
+var rank_hp_regen = 0
+var rank_mana_max = 0
+var rank_mana_regen = 0
+var rank_stamina_max = 0
+var rank_stamina_regen = 0
+var rank_speed_walk = 0
+var rank_speed_run = 0
+
+func connectSignals():
+	MySignals.connect("use_attribute_point", self, "_rankUpAttribute")
 
 func TakeDamage(amount):
 	var hp_old = hp
@@ -94,6 +106,12 @@ func gainStamina(amount):
 	else:
 		stamina = stamina_max
 		
+func regenerate(delta, inCombat):
+	gainMana(mana_regen * delta)
+	if(!inCombat):
+		HealDamage(hp_regen * delta)
+		gainStamina(stamina_regen*delta)
+	
 func getAllAttributes():
 	var attributeMap = {
 		constants.Attributes.HP_MAX : hp_max,
@@ -102,8 +120,56 @@ func getAllAttributes():
 		constants.Attributes.MANA_REGEN : mana_regen,
 		constants.Attributes.STAMINA_MAX : stamina_max,
 		constants.Attributes.STAMINA_REGEN : stamina_regen,
-		constants.Attributes.SPEED_WALK : walkSpeed,
-		constants.Attributes.SPEED_RUN : runSpeed
+		constants.Attributes.SPEED_WALK : speed_walk,
+		constants.Attributes.SPEED_RUN : speed_run
 	}
-	
 	return attributeMap
+	
+func getAllAttributeRanks():
+	var attributeMap = {
+		constants.Attributes.HP_MAX : rank_hp_max,
+		constants.Attributes.HP_REGEN : rank_hp_regen,
+		constants.Attributes.MANA_MAX : rank_mana_max,
+		constants.Attributes.MANA_REGEN : rank_mana_regen,
+		constants.Attributes.STAMINA_MAX : rank_stamina_max,
+		constants.Attributes.STAMINA_REGEN : rank_stamina_regen,
+		constants.Attributes.SPEED_WALK : rank_speed_walk,
+		constants.Attributes.SPEED_RUN : rank_speed_run
+	}
+	return attributeMap
+	
+func _rankUpAttribute(attribute):
+	if(attribute_points > 0):
+		attribute_points-= 1
+	else:
+		print("Tried to rank up an attribute without having attribute points :S")
+		return
+	
+	print("OK")
+	
+	if(attribute == constants.Attributes.HP_MAX):
+		rank_hp_max+=1
+		hp_max = constants.getAttributeValue(constants.Attributes.HP_MAX, rank_hp_max)
+	if(attribute == constants.Attributes.HP_REGEN):
+		rank_hp_regen+=1
+		hp_regen = constants.getAttributeValue(constants.Attributes.HP_REGEN, rank_hp_regen)
+	if(attribute == constants.Attributes.MANA_MAX):
+		rank_mana_max+=1
+		mana_max = constants.getAttributeValue(constants.Attributes.MANA_MAX, rank_mana_max)
+	if(attribute == constants.Attributes.MANA_REGEN):
+		rank_mana_regen+=1
+		mana_regen = constants.getAttributeValue(constants.Attributes.MANA_REGEN, rank_mana_regen)
+	if(attribute == constants.Attributes.STAMINA_MAX):
+		rank_stamina_max+=1
+		stamina_max = constants.getAttributeValue(constants.Attributes.STAMINA_MAX, rank_stamina_max)
+	if(attribute == constants.Attributes.STAMINA_REGEN):
+		rank_stamina_regen+=1
+		stamina_regen = constants.getAttributeValue(constants.Attributes.STAMINA_REGEN, rank_stamina_regen)
+	if(attribute == constants.Attributes.SPEED_WALK):
+		rank_speed_walk+=1
+		speed_walk = constants.getAttributeValue(constants.Attributes.SPEED_WALK, rank_speed_walk)
+	if(attribute == constants.Attributes.SPEED_RUN):
+		rank_speed_run+=1
+		speed_run = constants.getAttributeValue(constants.Attributes.SPEED_RUN, rank_speed_run)
+	
+	MySignals.emit_signal("attributes_changed", self)

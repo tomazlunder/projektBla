@@ -54,3 +54,4 @@ rect_min_size = Vector2( 60, 0 )
 text = "110"
 align = 2
 
+[connection signal="pressed" from="HBoxNext/ButtonRankUp" to="." method="_on_ButtonRankUp_pressed"]

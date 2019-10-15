@@ -17,6 +17,7 @@ var oldPosition = position
 
 func _ready():
 	Stats = preload("res://Resources/stats/startingStats.tres")
+	Stats.connectSignals()
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -71,8 +72,8 @@ func movement(delta):
 			
 	if(moveDir.length() != 0):
 		var move = moveDir.normalized()
-		if(run): move = move * Stats.runSpeed * delta
-		else: move = move * Stats.walkSpeed * delta
+		if(run): move = move * Stats.speed_run * delta
+		else: move = move * Stats.speed_walk * delta
 		
 		move_and_collide(move)
 		#Tell other computers about our new position so they can update
