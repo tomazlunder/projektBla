@@ -25,18 +25,19 @@ func _ready():
 	else:
 		var playerName = netcode.playerNames[int(name)]
 		$NameLabel.text = playerName
-		$HUD/Interface.hide()
 
 puppet func setPosition(newPosition):
 	position = newPosition
 
 func _process(delta):
-	if Input.is_key_pressed(KEY_9):
-		Stats.TakeDamage(1)
-	if Input.is_key_pressed(KEY_0):
-		Stats.HealDamage(1)
-	if Input.is_action_just_pressed("ui_attributes"):
-		MySignals.emit_signal("attribute_panel_open", Stats)
+	#TODO: These are temporaray...
+	if(is_network_master()):
+		if Input.is_key_pressed(KEY_9):
+			Stats.TakeDamage(1)
+		if Input.is_key_pressed(KEY_0):
+			Stats.HealDamage(1)
+		if Input.is_action_just_pressed("ui_attributes"):
+			MySignals.emit_signal("attribute_panel_open", Stats)
 	if(is_network_master()): movement(delta)
 	animation()
 	if(is_network_master()): attack()
