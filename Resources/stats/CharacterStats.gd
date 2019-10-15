@@ -110,10 +110,11 @@ func gainStamina(amount):
 		
 	MySignals.emit_signal("stamina_changed", stamina)
 		
-func regenerate(delta, inCombat):
+func regenerate(delta, inCombat, doStamina):
 	gainMana(mana_regen * delta)
 	if(!inCombat):
 		HealDamage(hp_regen * delta)
+	if(doStamina):
 		gainStamina(stamina_regen*delta)
 	
 func getAllAttributes():

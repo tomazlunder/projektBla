@@ -12,6 +12,9 @@ var Stats : CharacterStats
 
 var lastDirPressed = Vector2(1,0)
 
+#TODO: IMPLEMENT THIS
+var inCombat = false
+
 #Used mostly by non masters to change animations
 var oldPosition = position
 
@@ -44,10 +47,7 @@ func _process(delta):
 	if(is_network_master()): showRange()
 	if(is_network_master()): updateHud()
 	if(is_network_master()): 
-		Stats.gainMana(1*delta)
-		if($StaimnaRegenTimeout.time_left == 0):
-			Stats.gainStamina(5*delta)
-	oldPosition = position
+		Stats.regenerate(delta, inCombat, $StaimnaRegenTimeout.is_stopped())
 
 func movement(delta):
 	if(!$SpellTimeout.is_stopped()): return
