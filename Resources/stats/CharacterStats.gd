@@ -2,12 +2,6 @@ extends Resource
 
 class_name CharacterStats
 
-#For future use
-signal health_changed(new_health, old_health)
-signal health_depleted()
-signal mana_changed(new_mana, old_mana)
-signal stamina_changed(new_stamina, old_stamina)
-
 export var level : int
 export var experience : int
 export var attribute_points : int
@@ -50,7 +44,7 @@ func TakeDamage(amount):
 	else: 
 		hp = 0
 	
-	emit_signal("health_changed", hp, hp_old)
+	MySignals.emit_signal("hp_changed", hp)
 
 func HealDamage(amount):
 	if(amount < 0): 
@@ -62,6 +56,8 @@ func HealDamage(amount):
 	else: 
 		hp = hp_max
 		
+	MySignals.emit_signal("hp_changed", hp)
+	
 func useMana(amount):
 	if(amount < 0): 
 		print("Negative mana use!")
@@ -69,9 +65,11 @@ func useMana(amount):
 	var math = mana - amount
 	if math > 0:
 		mana = math
+		MySignals.emit_signal("mana_changed", mana)
 		return true
 	else:
 		mana = 0
+		MySignals.emit_signal("mana_changed", mana)
 		return false
 
 func gainMana(amount):
@@ -83,6 +81,8 @@ func gainMana(amount):
 		mana = math
 	else:
 		mana = mana_max
+	
+	MySignals.emit_signal("mana_changed", mana)
 		
 func useStamina(amount):
 	if(amount < 0): 
@@ -91,9 +91,11 @@ func useStamina(amount):
 	var math = stamina - amount
 	if math > 0:
 		stamina = math
+		MySignals.emit_signal("stamina_changed", stamina)
 		return true
 	else:
 		stamina = 0
+		MySignals.emit_signal("stamina_changed", stamina)
 		return false
 
 func gainStamina(amount):
@@ -105,6 +107,8 @@ func gainStamina(amount):
 		stamina = math
 	else:
 		stamina = stamina_max
+		
+	MySignals.emit_signal("stamina_changed", stamina)
 		
 func regenerate(delta, inCombat):
 	gainMana(mana_regen * delta)

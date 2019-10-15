@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TileSet/forestTileSet.tres" type="TileSet" id=2]
 [ext_resource path="res://Assets/TileSet/forestTrees64.tres" type="TileSet" id=3]
 [ext_resource path="res://Scenes/GUI/AttributeDialog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/GUI/HealthBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/GUI/ManaBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/GUI/StaminaBar.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,8 +35,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -400.0
-margin_top = -300.0
-margin_right = 400.0
-margin_bottom = 300.0
+margin_left = -1947.0
+margin_top = -220.0
+margin_right = -1067.0
+margin_bottom = 380.0
+
+[node name="HealthBar" parent="HUD" instance=ExtResource( 5 )]
+margin_top = 992.0
+margin_right = 256.0
+margin_bottom = 1024.0
+
+[node name="ManaBar" parent="HUD" instance=ExtResource( 6 )]
+margin_top = 928.0
+margin_right = 256.0
+margin_bottom = 960.0
+
+[node name="StaminaBar" parent="HUD" instance=ExtResource( 7 )]
+margin_top = 864.0
+margin_right = 256.0
+margin_bottom = 896.0
 
