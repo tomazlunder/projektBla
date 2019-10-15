@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/GUI/HBoxAttributeLine.gd" type="Script" id=1]
+
+[node name="HBoxAttributeLine" type="HBoxContainer"]
+margin_top = 18.6443
+margin_right = 458.0
+margin_bottom = 38.6443
+script = ExtResource( 1 )
+
+[node name="LabelAtribName" type="Label" parent="."]
+margin_top = 3.0
+margin_right = 200.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 3
+text = "Attribute name"
+
+[node name="LabelCurrent" type="Label" parent="."]
+margin_left = 204.0
+margin_top = 3.0
+margin_right = 264.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 60, 0 )
+text = "100"
+
+[node name="LabelCurrentRank" type="Label" parent="."]
+margin_left = 268.0
+margin_top = 3.0
+margin_right = 328.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 60, 0 )
+text = "0"
+
+[node name="HBoxNext" type="HBoxContainer" parent="."]
+margin_left = 332.0
+margin_right = 458.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 120, 0 )
+size_flags_horizontal = 3
+
+[node name="ButtonRankUp" type="Button" parent="HBoxNext"]
+margin_right = 62.0
+margin_bottom = 20.0
+text = "Rank up"
+align = 0
+
+[node name="LabelNext" type="Label" parent="HBoxNext"]
+margin_left = 66.0
+margin_top = 3.0
+margin_right = 126.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 60, 0 )
+text = "110"
+align = 2
+

@@ -93,3 +93,17 @@ func gainStamina(amount):
 		stamina = math
 	else:
 		stamina = stamina_max
+		
+func getAllAttributes():
+	var attributeMap = {
+		constants.Attributes.HP_MAX : hp_max,
+		constants.Attributes.HP_REGEN : hp_regen,
+		constants.Attributes.MANA_MAX : mana_max,
+		constants.Attributes.MANA_REGEN : mana_regen,
+		constants.Attributes.STAMINA_MAX : stamina_max,
+		constants.Attributes.STAMINA_REGEN : stamina_regen,
+		constants.Attributes.SPEED_WALK : walkSpeed,
+		constants.Attributes.SPEED_RUN : runSpeed
+	}
+	
+	return attributeMap

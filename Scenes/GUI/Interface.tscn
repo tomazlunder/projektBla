@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/GUI/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/GUI/ManaBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/GUI/StaminaBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/GUI/StatsPanel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/GUI/AttributePanel.tscn" type="PackedScene" id=4]
 
 [node name="Interface" type="Control"]
 anchor_right = 1.0
@@ -25,11 +25,10 @@ margin_top = 131.781
 margin_right = 254.745
 margin_bottom = 163.781
 
-[node name="Panel" type="Panel" parent="."]
-margin_left = 373.0
-margin_top = 256.0
-margin_right = 983.0
-margin_bottom = 929.0
-
-[node name="GridContainer" parent="Panel" instance=ExtResource( 4 )]
+[node name="AttributePanel" parent="." instance=ExtResource( 4 )]
+visible = false
+margin_left = 396.193
+margin_top = 295.409
+margin_right = -718.807
+margin_bottom = -169.591
 

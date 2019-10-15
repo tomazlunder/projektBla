@@ -4,6 +4,8 @@ var walkSpeed = 1.5
 var runSpeed = 3.5
 var showRange = false
 
+var HUD_attribute_panel_open = false
+
 onready var AnimatedSprite=$AnimatedSprite
 
 var Stats : CharacterStats
@@ -32,6 +34,8 @@ func _process(delta):
 		Stats.TakeDamage(1)
 	if Input.is_key_pressed(KEY_0):
 		Stats.HealDamage(1)
+	if Input.is_action_just_pressed("ui_attributes"):
+		MySignals.emit_signal("attribute_panel_open", Stats)
 	if(is_network_master()): movement(delta)
 	animation()
 	if(is_network_master()): attack()
