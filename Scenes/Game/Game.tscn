@@ -4,9 +4,9 @@
 [ext_resource path="res://Assets/TileSet/forestTileSet.tres" type="TileSet" id=2]
 [ext_resource path="res://Assets/TileSet/forestTrees64.tres" type="TileSet" id=3]
 [ext_resource path="res://Scenes/GUI/AttributeDialog.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/GUI/HealthBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/GUI/StaminaBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/GUI/ManaBar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/GUI/StaminaBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/GUI/HealthBar.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -40,18 +40,34 @@ margin_top = -220.0
 margin_right = -1067.0
 margin_bottom = 380.0
 
-[node name="HealthBar" parent="HUD" instance=ExtResource( 5 )]
-margin_top = 992.0
-margin_right = 256.0
-margin_bottom = 1024.0
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
 
-[node name="ManaBar" parent="HUD" instance=ExtResource( 6 )]
-margin_top = 928.0
-margin_right = 256.0
-margin_bottom = 960.0
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer"]
+margin_right = 1270.0
+margin_bottom = 710.0
+alignment = 2
 
-[node name="StaminaBar" parent="HUD" instance=ExtResource( 7 )]
-margin_top = 864.0
-margin_right = 256.0
-margin_bottom = 896.0
+[node name="StaminaBar" parent="HUD/MarginContainer/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 606.0
+margin_right = 1270.0
+margin_bottom = 638.0
+rect_scale = Vector2( 1, 1 )
+
+[node name="ManaBar" parent="HUD/MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 642.0
+margin_right = 1270.0
+margin_bottom = 674.0
+rect_scale = Vector2( 1, 1 )
+
+[node name="HealthBar" parent="HUD/MarginContainer/VBoxContainer" instance=ExtResource( 7 )]
+margin_top = 678.0
+margin_right = 1270.0
+margin_bottom = 710.0
+rect_scale = Vector2( 1, 1 )
 
