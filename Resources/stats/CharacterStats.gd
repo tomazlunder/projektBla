@@ -31,7 +31,11 @@ var rank_speed_walk = 0
 var rank_speed_run = 0
 
 func connectSignals():
+	#UI related
 	MySignals.connect("use_attribute_point", self, "_rankUpAttribute")
+	
+	#Network related
+	RPCsignals.connect("deal_damage_signal", self, "TakeDamage")
 
 func TakeDamage(amount):
 	var hp_old = hp

@@ -46,7 +46,6 @@ func _process(delta):
 	animation()
 	if(is_network_master()): attack()
 	if(is_network_master()): showRange()
-	if(is_network_master()): updateHud()
 	if(is_network_master()): 
 		Stats.regenerate(delta, inCombat, $StaimnaRegenTimeout.is_stopped())
 		
@@ -145,6 +144,7 @@ remotesync func spawnFireball(var playerID, var directionInput):
 		if(directionInput.y >= 0): fireBall.global_position.y += 0.1
 		fireBall.direction = directionInput
 		fireBall.playerID = playerID
+
 		get_parent().add_child(fireBall)
 		
 func retunSign(var num):
