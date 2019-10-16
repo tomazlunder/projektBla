@@ -1,12 +1,15 @@
-extends Node2D
+extends Control
+
+onready var ButtonStart = $Margin/VBoxMain/HBoxListButtons/VBoxButtons/startButton
+
+onready var Player1NameLabel = $Margin/VBoxMain/HBoxListButtons/VBoxPlayers/playersHbox1/p1Label
+
+onready var VBoxPlayers = $Margin/VBoxMain/HBoxListButtons/VBoxPlayers
 
 func _ready():	
 	if(get_tree().multiplayer.is_network_server()):
-		var btnStart = get_node("startButton")
-		btnStart.disabled = false
-		
-		get_node("playersVbox/playersHbox1/p1nameLabel").text = globals.playerName
-
+		ButtonStart.disabled = false
+		Player1NameLabel.text = globals.playerName
 	set_process(true)
 	
 func _process(delta):
@@ -25,7 +28,7 @@ func updateUIplayers():
 func updatePlayerList(var players):
 	var i = 1
 	while(i <= 4):
-		var label = get_node("playersVbox/playersHbox" + str(i) + "/p"+ str(i) +"nameLabel")
+		var label = VBoxPlayers.get_node("playersHbox" + str(i) + "/p"+ str(i) +"nameLabel")
 		label.text = "EMPTY"
 		if players.size() >= i:
 			label.text = players[i-1]
