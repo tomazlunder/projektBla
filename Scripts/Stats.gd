@@ -1,25 +1,23 @@
-extends Resource
+extends Node
 
-class_name CharacterStats
+var level = 0
+var experience = 0
+var attribute_points = 10
 
-export var level : int
-export var experience : int
-export var attribute_points : int
+var hp_max : float 
+var hp_regen : float
+var hp : float
 
-export var hp_max : float 
-export var hp_regen : float
-export var hp : float
+var mana_max : float
+var mana_regen : float
+var mana : float
 
-export var mana_max : float
-export var mana_regen : float
-export var mana : float
+var stamina_max : float
+var stamina_regen : float
+var stamina : float
 
-export var stamina_max : float
-export var stamina_regen : float
-export var stamina : float
-
-export var speed_walk : float
-export var speed_run : float
+var speed_walk : float
+var speed_run : float
 
 var rank_hp_max = 0
 var rank_hp_regen = 0
@@ -29,6 +27,20 @@ var rank_stamina_max = 0
 var rank_stamina_regen = 0
 var rank_speed_walk = 0
 var rank_speed_run = 0
+
+func _ready():
+	hp_max = constants.getAttributeValue(constants.Attributes.HP_MAX,rank_hp_max)
+	hp_regen = constants.getAttributeValue(constants.Attributes.HP_REGEN,rank_hp_regen)
+	mana_max = constants.getAttributeValue(constants.Attributes.MANA_MAX,rank_mana_max)
+	mana_regen = constants.getAttributeValue(constants.Attributes.MANA_REGEN,rank_mana_regen)
+	stamina_max = constants.getAttributeValue(constants.Attributes.STAMINA_MAX,rank_stamina_max)
+	stamina_regen = constants.getAttributeValue(constants.Attributes.STAMINA_REGEN,rank_stamina_regen)
+	speed_walk = constants.getAttributeValue(constants.Attributes.SPEED_WALK,rank_speed_walk)
+	speed_run = constants.getAttributeValue(constants.Attributes.SPEED_RUN,rank_speed_run)
+	
+	hp = hp_max
+	mana = mana_max
+	stamina = stamina_max
 
 func connectSignals():
 	#UI related

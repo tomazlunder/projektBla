@@ -8,7 +8,7 @@ var HUD_attribute_panel_open = false
 
 onready var AnimatedSprite=$AnimatedSprite
 
-var Stats : CharacterStats
+onready var Stats = $Stats
 
 var lastDirPressed = Vector2(1,0)
 
@@ -19,7 +19,7 @@ var inCombat = false
 var oldPosition = position
 
 func _ready():
-	Stats = preload("res://Resources/stats/startingStats.tres")
+	#Stats = preload("res://Resources/stats/startingStats.tres")
 	if(is_network_master()):
 		Stats.connectSignals()
 	
