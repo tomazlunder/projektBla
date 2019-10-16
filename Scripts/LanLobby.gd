@@ -2,7 +2,7 @@ extends Control
 
 onready var ButtonStart = $Margin/VBoxMain/HBoxListButtons/VBoxButtons/startButton
 
-onready var Player1NameLabel = $Margin/VBoxMain/HBoxListButtons/VBoxPlayers/playersHbox1/p1Label
+onready var Player1NameLabel = $Margin/VBoxMain/HBoxListButtons/VBoxPlayers/playersHbox1/p1nameLabel
 
 onready var VBoxPlayers = $Margin/VBoxMain/HBoxListButtons/VBoxPlayers
 
