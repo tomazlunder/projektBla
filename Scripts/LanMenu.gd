@@ -88,8 +88,8 @@ func _on_lanSearchTimeout_timeout():
 		var item
 		item = rightSpacePad(serverIPs[i],16) +"|"
 		item+= rightSpacePad((serverNames[i]+"'s game"), 40)+"|"
-		item+= leftSpacePad(str(serverNumPlayers[i]) +"/"+str(constants.maxPlayers),5)
-		if(serverNumPlayers[i] >= constants.maxPlayers):
+		item+= leftSpacePad(str(serverNumPlayers[i]) +"/"+str(netcode.max_players),5)
+		if(serverNumPlayers[i] >= netcode.max_players):
 			item += " (FULL)"
 		#print("added item to list")
 		itemList.add_item(str(item))
@@ -115,7 +115,7 @@ func _on_joinButton_button_down():
 	get_tree().change_scene("res://Scenes/Menus/LanLobby.tscn")
 
 func _on_gameItemList_item_selected(index):
-	if(serverNumPlayers[index] < constants.maxPlayers):
+	if(serverNumPlayers[index] < netcode.max_players):
 		var btn = $joinButton
 		btn.disabled = false
 

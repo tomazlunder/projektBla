@@ -20,7 +20,8 @@ var oldPosition = position
 
 func _ready():
 	Stats = preload("res://Resources/stats/startingStats.tres")
-	Stats.connectSignals()
+	if(is_network_master()):
+		Stats.connectSignals()
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -48,6 +49,8 @@ func _process(delta):
 	if(is_network_master()): updateHud()
 	if(is_network_master()): 
 		Stats.regenerate(delta, inCombat, $StaimnaRegenTimeout.is_stopped())
+		
+	oldPosition = position
 
 func movement(delta):
 	if(!$SpellTimeout.is_stopped()): return

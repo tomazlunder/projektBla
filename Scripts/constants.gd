@@ -1,7 +1,5 @@
 extends Node
 
-var maxPlayers = 4
-
 enum Attributes{
 	HP_MAX,
 	HP_REGEN,

@@ -9,6 +9,7 @@ var serverPort = 17703
 
 var host
 
+var max_players = 4
 sync var players = []
 sync var playerNames = {}
 var players_ready = []
