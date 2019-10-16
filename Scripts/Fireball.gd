@@ -21,11 +21,14 @@ func _on_Timer_timeout():
 func _on_Node2D_body_entered(body):
 	if(get_tree().multiplayer.is_network_server()):
 		if not body.get("Stats") == null:
-			var playerID = int(body.name)
-			if(playerID == 1):
+			var _playerID = int(body.name)
+			if(playerID == _playerID):
+				return
+			
+			if(_playerID == 1):
 				MySignals.emit_signal("deal_damage_signal", damage)
 			else:
-				rpc_id(playerID,"deal_damage")
+				rpc_id(_playerID,"deal_damage")
 			rpc("destroy")
 	
 #Only called on the correct client
