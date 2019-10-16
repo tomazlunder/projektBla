@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var serverIPs = []
 var serverNames = []
@@ -13,13 +13,19 @@ var gamePort = 17703
 
 var addedToList = false
 
+onready var PlayerNameEdit=$Margin/VBox/HBox/VBoxButtons/nameTextEdit
+onready var GameItemList=$Margin/VBox/HBox/VBoxList/gameItemList
+onready var NoGamesFoundLabel=$Margin/VBox/HBox/VBoxList/gameItemList/noGamesFoundLabel
+onready var RefreshButton=$Margin/VBox/HBox/VBoxList/refreshButton
+onready var JoinButton=$Margin/VBox/HBox/VBoxButtons/joinButton
+onready var LanSearchTimeout=$lanSearchTimeout
+
 func _ready():
 	randomize()
 	var randomPlayerNum = rand_range(10000, 99999)
-	get_node('nameTextEdit').text = "player_" + str(int(randomPlayerNum))
+	PlayerNameEdit.text = "player_" + str(int(randomPlayerNum))
 	
-	var label = get_node('noGamesFoundLabel')
-	label.hide()
+	NoGamesFoundLabel.hide()
 	
 	globals.playerName = "player_" + str(int(randomPlayerNum))
 	search_for_games()
@@ -47,8 +53,7 @@ func search_for_games():
 	serverNames = []
 	serverNumPlayers = []
 	
-	var label = get_node('noGamesFoundLabel')
-	label.hide()
+	NoGamesFoundLabel.hide()
 	
 	listenSocket = PacketPeerUDP.new()
 	listenSocket.listen(listenPort)
@@ -61,11 +66,10 @@ func search_for_games():
 	pollSocket.put_packet(packet)
 	
 	pollSocket.close()
-	get_node("lanSearchTimeout").start()
+	LanSearchTimeout.start()
 
 func _on_refreshButton_button_down():
-	var btn = get_node("refreshButton")
-	btn.disabled = true
+	RefreshButton.disabled = true
 	search_for_games()
 
 
@@ -80,9 +84,7 @@ func _on_hostButton_button_down():
 
 func _on_lanSearchTimeout_timeout():
 	listenSocket.close()
-	
-	var itemList = get_node("gameItemList")
-	itemList.clear()
+	GameItemList.clear()
 			
 	for i in serverIPs.size():
 		var item
@@ -92,23 +94,21 @@ func _on_lanSearchTimeout_timeout():
 		if(serverNumPlayers[i] >= netcode.max_players):
 			item += " (FULL)"
 		#print("added item to list")
-		itemList.add_item(str(item))
+		GameItemList.add_item(str(item))
 		
 	if serverIPs.size() == 0:
-		var label = get_node('noGamesFoundLabel')
-		label.show()
+		NoGamesFoundLabel.show()
 		
-	get_node("refreshButton").disabled = false
+	RefreshButton.disabled = false
 
 
 func _on_joinButton_button_down():
 	#Valid server sellection check
-	var itemList = get_node("gameItemList")
-	if itemList.get_selected_items().size() == 0:
+	if GameItemList.get_selected_items().size() == 0:
 		return
 		
 	print("Joining network")
-	var ip = serverIPs[itemList.get_selected_items()[0]]
+	var ip = serverIPs[GameItemList.get_selected_items()[0]]
 	
 	get_tree().set_network_peer(null) 
 	netcode.join_server(ip)
@@ -116,12 +116,10 @@ func _on_joinButton_button_down():
 
 func _on_gameItemList_item_selected(index):
 	if(serverNumPlayers[index] < netcode.max_players):
-		var btn = $joinButton
-		btn.disabled = false
+		JoinButton.disabled = false
 
 func _on_gameItemList_nothing_selected():
-	var btn = $joinButton
-	btn.disabled = true
+	JoinButton.disabled = true
 
 func _on_backButton_button_down():
 	get_tree().change_scene("res://Scenes/Menus/MainMenu.tscn")
