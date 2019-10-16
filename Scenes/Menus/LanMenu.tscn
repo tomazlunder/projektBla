@@ -26,13 +26,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
-margin_right = 1260.0
-margin_bottom = 700.0
+margin_right = 1900.0
+margin_bottom = 1060.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="menuTitleLabel" type="Label" parent="Margin/VBox"]
-margin_right = 1260.0
+margin_right = 1900.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
@@ -41,18 +41,18 @@ text = "LAN MENU"
 
 [node name="HBox" type="HBoxContainer" parent="Margin/VBox"]
 margin_top = 104.0
-margin_right = 1260.0
-margin_bottom = 700.0
+margin_right = 1900.0
+margin_bottom = 1060.0
 size_flags_vertical = 3
 
 [node name="VBoxList" type="VBoxContainer" parent="Margin/VBox/HBox"]
-margin_right = 906.0
-margin_bottom = 596.0
+margin_right = 1546.0
+margin_bottom = 956.0
 size_flags_horizontal = 3
 
 [node name="gameItemList" type="ItemList" parent="Margin/VBox/HBox/VBoxList"]
-margin_right = 906.0
-margin_bottom = 547.0
+margin_right = 1546.0
+margin_bottom = 907.0
 rect_min_size = Vector2( 800, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -68,17 +68,17 @@ custom_fonts/font = ExtResource( 3 )
 text = "No games found :("
 
 [node name="refreshButton" type="Button" parent="Margin/VBox/HBox/VBoxList"]
-margin_top = 551.0
-margin_right = 906.0
-margin_bottom = 596.0
+margin_top = 911.0
+margin_right = 1546.0
+margin_bottom = 956.0
 custom_fonts/font = ExtResource( 3 )
 disabled = true
 text = "REFRESH"
 
 [node name="VBoxButtons" type="VBoxContainer" parent="Margin/VBox/HBox"]
-margin_left = 910.0
-margin_right = 1260.0
-margin_bottom = 596.0
+margin_left = 1550.0
+margin_right = 1900.0
+margin_bottom = 956.0
 rect_min_size = Vector2( 350, 0 )
 size_flags_vertical = 3
 

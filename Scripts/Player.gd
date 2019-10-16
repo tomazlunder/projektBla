@@ -147,12 +147,6 @@ remotesync func spawnFireball(var playerID, var directionInput):
 		fireBall.playerID = playerID
 		get_parent().add_child(fireBall)
 		
-func updateHud():
-	#$HUD/Interface/HealthBar.updateValue(float(Stats.hp) / float(Stats.hp_max))
-	#$HUD/Interface/ManaBar.updateValue(float(Stats.mana) / float(Stats.mana_max))
-	#$HUD/Interface/StaminaBar.updateValue(float(Stats.stamina) / float(Stats.stamina_max))
-	pass
-	
 func retunSign(var num):
 	if num >= 0: return 1
 	if num < 0: return -1

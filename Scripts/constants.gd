@@ -22,20 +22,29 @@ var AttributeNames = {
 	Attributes.SPEED_RUN : "Running Speed"
 }
 
+var starting_HP_MAX = 100
+var starting_HP_REGEN = 1
+var starting_MANA_MAX = 100
+var starting_MANA_REGEN = 1
+var starting_STAMINA_MAX = 100
+var starting_STAMINA_REGEN = 10
+var starting_SPEED_WALK = 90
+var starting_SPEED_RUN = 210
+
 func getAttributeValue(attribute, rank):
 	if(attribute == Attributes.HP_MAX):
-		return 100 + rank * 10
+		return starting_HP_MAX + rank * 10
 	if(attribute == Attributes.HP_REGEN):
-		return 1 + 0.3 * rank
+		return starting_HP_REGEN + 0.3 * rank
 	if(attribute == Attributes.MANA_MAX):
-		return 100 + 10 * rank
+		return starting_MANA_MAX + 10 * rank
 	if(attribute == Attributes.MANA_REGEN):
-		return 1 + 0.3 * rank
+		return starting_MANA_REGEN + 0.3 * rank
 	if(attribute == Attributes.STAMINA_MAX):
-		return 100 + 10 * rank
+		return starting_STAMINA_MAX + 10 * rank
 	if(attribute == Attributes.STAMINA_REGEN):
-		return 10 + 1 * rank
+		return starting_STAMINA_REGEN + 1 * rank
 	if(attribute == Attributes.SPEED_WALK):
-		return 100 + 5 * rank
+		return starting_SPEED_WALK + 5 * rank
 	if(attribute == Attributes.SPEED_RUN):
-		return 200 + 5 * rank
+		return starting_SPEED_RUN + 5 * rank
