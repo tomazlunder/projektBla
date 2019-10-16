@@ -30,7 +30,6 @@ globals="*res://Scripts/globals.gd"
 constants="*res://Scripts/constants.gd"
 netcode="*res://Scripts/netcode.gd"
 MySignals="*res://Scripts/MySignals.gd"
-RPCsignals="*res://Scripts/RPCsignals.gd"
 
 [display]
 

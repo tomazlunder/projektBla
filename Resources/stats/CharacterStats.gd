@@ -35,7 +35,7 @@ func connectSignals():
 	MySignals.connect("use_attribute_point", self, "_rankUpAttribute")
 	
 	#Network related
-	RPCsignals.connect("deal_damage_signal", self, "TakeDamage")
+	MySignals.connect("deal_damage_signal", self, "TakeDamage")
 
 func TakeDamage(amount):
 	var hp_old = hp

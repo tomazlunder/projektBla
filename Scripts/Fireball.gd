@@ -23,16 +23,14 @@ func _on_Node2D_body_entered(body):
 		if not body.get("Stats") == null:
 			var playerID = int(body.name)
 			if(playerID == 1):
-				RPCsignals.emit_signal("deal_damage_signal", damage)
+				MySignals.emit_signal("deal_damage_signal", damage)
 			else:
 				rpc_id(playerID,"deal_damage")
 			rpc("destroy")
-			#queue_free()
-	pass # Replace with function body.
 	
 #Only called on the correct client
 remote func deal_damage():
-	RPCsignals.emit_signal("deal_damage_signal", damage)
+	MySignals.emit_signal("deal_damage_signal", damage)
 
 remotesync func destroy():
 	queue_free()

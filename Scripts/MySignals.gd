@@ -7,3 +7,5 @@ signal attributes_changed(Stats)
 signal hp_changed(newHp)
 signal mana_changed(newMana)
 signal stamina_changed(newStamina)
+
+signal deal_damage_signal(damage)

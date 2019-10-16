@@ -82,7 +82,6 @@ func _server_disconnected():
 #Sends the client data to server
 func _connected_ok():
 	rpc("registerPlayer", get_tree().multiplayer.get_network_unique_id(), globals.playerName)
-	RPCsignals.set_network_master(1)
 	
 #Recieves client data
 master func registerPlayer(var id, var name):
