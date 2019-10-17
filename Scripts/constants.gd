@@ -1,5 +1,6 @@
 extends Node
 
+#ATTRIBUTES
 enum Attributes{
 	HP_MAX,
 	HP_REGEN,
@@ -48,3 +49,9 @@ func getAttributeValue(attribute, rank):
 		return starting_SPEED_WALK + 5 * rank
 	if(attribute == Attributes.SPEED_RUN):
 		return starting_SPEED_RUN + 5 * rank
+		
+#SPELLS
+enum Spells{
+	FIREBALL,
+	ICEWALL
+}
