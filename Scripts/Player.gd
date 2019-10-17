@@ -164,6 +164,7 @@ func _on_hp_changed(hp):
 	$HPLabel.text = str(int(hp))
 	
 func _on_damage_taken(damage):
+	print("HEAL STOPPED")
 	$InCombatTimer.start()
 	
 func onPlayerDeath():
@@ -171,3 +172,4 @@ func onPlayerDeath():
 	Stats.hp = Stats.hp_max
 	Stats.mana = Stats.mana_max
 	Stats.stamina = Stats.stamina_max
+	rpc_unreliable("setPosition",position)
