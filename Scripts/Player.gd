@@ -144,13 +144,14 @@ remotesync func spawnFireball(var playerID, var directionInput):
 			AnimatedSprite.play("cast")
 	
 		var fireBall = load("res://Scenes/Game/Fireball.tscn").instance()
+		get_parent().add_child(fireBall)
+		
 		fireBall.global_position = global_position
 		if(directionInput.x != 0 || directionInput.y < 0): fireBall.global_position += directionInput.normalized()*16
 		if(directionInput.y >= 0): fireBall.global_position.y += 0.1
 		fireBall.direction = directionInput
 		fireBall.playerID = playerID
-
-		get_parent().add_child(fireBall)
+		#get_parent().add_child(fireBall)
 		
 func retunSign(var num):
 	if num >= 0: return 1
