@@ -67,6 +67,7 @@ func TakeDamage(amount):
 		MySignals.emit_signal("player_dead")
 	
 	MySignals.emit_signal("hp_changed", hp)
+	MySignals.emit_signal("damage_taken", amount)
 
 func HealDamage(amount):
 	if(amount < 0): 

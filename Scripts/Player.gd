@@ -51,7 +51,7 @@ func _process(delta):
 	if(is_network_master()): attack()
 	if(is_network_master()): showRange()
 	if(is_network_master()): 
-		Stats.regenerate(delta, inCombat, $StaimnaRegenTimeout.is_stopped())
+		Stats.regenerate(delta, $InCombatTimer.is_stopped(), $StaimnaRegenTimeout.is_stopped())
 	#if(!is_network_master()):
 	$HPLabel.text = str(int(Stats.hp))
 	oldPosition = position
@@ -164,7 +164,6 @@ func _on_hp_changed(hp):
 	$HPLabel.text = str(int(hp))
 	
 func _on_damage_taken(damage):
-	inCombat = true
 	$InCombatTimer.start()
 	
 func onPlayerDeath():
@@ -172,6 +171,3 @@ func onPlayerDeath():
 	Stats.hp = Stats.hp_max
 	Stats.mana = Stats.mana_max
 	Stats.stamina = Stats.stamina_max
-
-func _on_InCombatTimer_timeout():
-	inCombat = false
