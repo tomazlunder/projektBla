@@ -24,6 +24,10 @@ func _ready():
 
 func create_server(lfg):
 	print("Hosting network")
+	players = []
+	playerNames = {}
+	players_ready = []
+	
 	host = NetworkedMultiplayerENet.new()
 	var res = host.create_server(serverPort,10)
 	if res != OK:
@@ -56,6 +60,9 @@ func _process(delta):
 		replySocket.close()
 	
 func join_server(ip):
+	players = []
+	playerNames = {}
+	
 	host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, serverPort)
 	get_tree().set_network_peer(host)

@@ -19,15 +19,18 @@ onready var NoGamesFoundLabel=$Margin/VBox/HBox/VBoxList/gameItemList/noGamesFou
 onready var RefreshButton=$Margin/VBox/HBox/VBoxList/refreshButton
 onready var JoinButton=$Margin/VBox/HBox/VBoxButtons/joinButton
 onready var LanSearchTimeout=$lanSearchTimeout
+onready var NameTextEdit=$Margin/VBox/HBox/VBoxButtons/nameTextEdit
 
 func _ready():
 	randomize()
-	var randomPlayerNum = rand_range(10000, 99999)
-	PlayerNameEdit.text = "player_" + str(int(randomPlayerNum))
+	if(globals.playerName == null):
+		var randomPlayerNum = rand_range(10000, 99999)
+		globals.playerName = "player_" + str(int(randomPlayerNum))
+		
+	PlayerNameEdit.text = globals.playerName
 	
 	NoGamesFoundLabel.hide()
 	
-	globals.playerName = "player_" + str(int(randomPlayerNum))
 	search_for_games()
 	
 func _process(delta):
@@ -135,5 +138,20 @@ func rightSpacePad(var string, var total):
 	while(newString.length() < total):
 		newString+= " "
 	return newString
-	
-	
+
+func _on_nameTextEdit_cursor_changed():
+	if(NameTextEdit.text.length() >= 5):
+		globals.playerName = NameTextEdit.text
+	else:
+		NameTextEdit.text = globals.playerName
+	pass # Replace with function body.
+
+func _on_nameTextEdit_text_entered(new_text):
+	if(NameTextEdit.text.length() >= 5):
+		globals.playerName = NameTextEdit.text
+	else:
+		NameTextEdit.text = globals.playerName
+
+
+func _on_nameTextEdit_focus_exited():
+	_on_nameTextEdit_text_entered("")
