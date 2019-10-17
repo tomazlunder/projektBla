@@ -71,3 +71,15 @@ margin_right = 1270.0
 margin_bottom = 710.0
 rect_scale = Vector2( 1, 1 )
 
+[node name="Spawn1" type="Position2D" parent="."]
+position = Vector2( -64, -32 )
+
+[node name="Spawn2" type="Position2D" parent="."]
+position = Vector2( 64, -32 )
+
+[node name="Spawn3" type="Position2D" parent="."]
+position = Vector2( -64, 64 )
+
+[node name="Spawn4" type="Position2D" parent="."]
+position = Vector2( 64, 64 )
+

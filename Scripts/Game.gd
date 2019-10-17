@@ -2,6 +2,8 @@ extends Node2D
 
 var players_ready = []
 
+onready var spawns = [$Spawn1, $Spawn2, $Spawn3, $Spawn4]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():	
 	pre_configure_game()
@@ -16,11 +18,14 @@ func pre_configure_game():
 	get_tree().set_pause(true) # Pre-pause
 	
 	#Create all players
+	var i = 0
 	for pid in netcode.players:
 		var player = preload("res://Scenes/Game/Player.tscn").instance()
 		player.set_name(str(pid))
 		player.set_network_master(pid)
+		player.position = spawns[i].position
 		$YSort.add_child(player)
+		i+=1
 	
 	print("pre configured game")
 	rpc("ready_to_start", get_tree().get_network_unique_id())
