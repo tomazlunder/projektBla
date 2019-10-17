@@ -41,6 +41,11 @@ func _ready():
 	hp = hp_max
 	mana = mana_max
 	stamina = stamina_max
+	
+puppet func updatePuppetResources(newHp, newMana, newStamina):
+	hp = newHp
+	mana = newMana
+	stamina = newStamina
 
 func connectSignals():
 	#UI related
@@ -132,6 +137,8 @@ func regenerate(delta, inCombat, doStamina):
 		HealDamage(hp_regen * delta)
 	if(doStamina):
 		gainStamina(stamina_regen*delta)
+		
+	rpc("updatePuppetResources", hp, mana, stamina)
 	
 func getAllAttributes():
 	var attributeMap = {

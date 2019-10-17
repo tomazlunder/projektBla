@@ -22,6 +22,7 @@ func _ready():
 	#Stats = preload("res://Resources/stats/startingStats.tres")
 	if(is_network_master()):
 		Stats.connectSignals()
+		MySignals.connect("hp_changed",self,"updateHPLabel")
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -49,6 +50,8 @@ func _process(delta):
 	if(is_network_master()): 
 		Stats.regenerate(delta, inCombat, $StaimnaRegenTimeout.is_stopped())
 		
+	#if(!is_network_master()):
+	$HPLabel.text = str(int(Stats.hp))
 	oldPosition = position
 
 func movement(delta):
@@ -154,3 +157,8 @@ func retunSign(var num):
 
 func _on_SpellTimeout_timeout():
 	AnimatedSprite.play("idle")
+	
+func updateHPLabel(hp):
+	$HPLabel.text = str(int(hp))
+	
+

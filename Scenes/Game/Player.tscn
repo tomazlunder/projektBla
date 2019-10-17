@@ -51,4 +51,11 @@ one_shot = true
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 5 )
 
+[node name="HPLabel" type="Label" parent="."]
+margin_left = 19.7641
+margin_top = -45.5891
+margin_right = 59.7641
+margin_bottom = -31.5891
+text = "100"
+
 [connection signal="timeout" from="SpellTimeout" to="." method="_on_SpellTimeout_timeout"]
