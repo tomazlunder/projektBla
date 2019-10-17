@@ -166,7 +166,7 @@ func _rankUpAttribute(attribute):
 		print("Tried to rank up an attribute without having attribute points :S")
 		return
 	
-	print("OK")
+	print("Leveled up attribute ("+constants.AttributeNames[attribute]+")")
 	
 	if(attribute == constants.Attributes.HP_MAX):
 		rank_hp_max+=1
