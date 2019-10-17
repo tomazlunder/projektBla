@@ -4,6 +4,8 @@ var players_ready = []
 
 onready var spawns = [$Spawn1, $Spawn2, $Spawn3, $Spawn4]
 
+var respawn = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():	
 	pre_configure_game()
@@ -23,6 +25,7 @@ func pre_configure_game():
 		var player = preload("res://Scenes/Game/Player.tscn").instance()
 		player.set_name(str(pid))
 		player.set_network_master(pid)
+		player.spawn = spawns[i].position
 		player.position = spawns[i].position
 		$YSort.add_child(player)
 		i+=1

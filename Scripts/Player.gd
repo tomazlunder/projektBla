@@ -5,6 +5,7 @@ var runSpeed = 3.5
 var showRange = false
 
 var HUD_attribute_panel_open = false
+var spawn
 
 onready var AnimatedSprite=$AnimatedSprite
 
@@ -22,7 +23,9 @@ func _ready():
 	#Stats = preload("res://Resources/stats/startingStats.tres")
 	if(is_network_master()):
 		Stats.connectSignals()
-		MySignals.connect("hp_changed",self,"updateHPLabel")
+		MySignals.connect("hp_changed",self,"_on_hp_changed")
+		MySignals.connect("player_dead",self,"onPlayerDeath")
+		MySignals.connect("damage_taken", self, "_on_damage_taken")
 	
 	if(is_network_master()):
 		$Camera2D.current = true;
@@ -49,7 +52,6 @@ func _process(delta):
 	if(is_network_master()): showRange()
 	if(is_network_master()): 
 		Stats.regenerate(delta, inCombat, $StaimnaRegenTimeout.is_stopped())
-		
 	#if(!is_network_master()):
 	$HPLabel.text = str(int(Stats.hp))
 	oldPosition = position
@@ -158,7 +160,18 @@ func retunSign(var num):
 func _on_SpellTimeout_timeout():
 	AnimatedSprite.play("idle")
 	
-func updateHPLabel(hp):
+func _on_hp_changed(hp):
 	$HPLabel.text = str(int(hp))
 	
+func _on_damage_taken(damage):
+	inCombat = true
+	$InCombatTimer.start()
+	
+func onPlayerDeath():
+	position = spawn
+	Stats.hp = Stats.hp_max
+	Stats.mana = Stats.mana_max
+	Stats.stamina = Stats.stamina_max
 
+func _on_InCombatTimer_timeout():
+	inCombat = false

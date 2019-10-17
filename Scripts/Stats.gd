@@ -64,6 +64,7 @@ func TakeDamage(amount):
 		hp = math
 	else: 
 		hp = 0
+		MySignals.emit_signal("player_dead")
 	
 	MySignals.emit_signal("hp_changed", hp)
 
