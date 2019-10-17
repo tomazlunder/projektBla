@@ -15,6 +15,7 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().set_network_peer(null)
 		get_tree().change_scene("res://Scenes/Menus/MainMenu.tscn")
+		MySignals.emit_signal("exited_game")
 	
 func pre_configure_game():
 	get_tree().set_pause(true) # Pre-pause

@@ -21,6 +21,8 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
+	MySignals.connect("exited_game",self,"stopLFGlisten")
 
 func create_server(lfg):
 	print("Hosting network")
@@ -94,3 +96,9 @@ func _connected_ok():
 master func registerPlayer(var id, var name):
 	playerNames[id] = name
 	rset("playerNames", playerNames)
+	
+#
+func stopLFGlisten():
+	if(listenForLFGsocket.is_listening()):
+		listenForLFGsocket.close()
+		set_process(false)

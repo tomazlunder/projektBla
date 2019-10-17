@@ -41,7 +41,7 @@ remotesync func startGame():
 
 #Start button is only enabled for server
 func _on_startButton_button_down():
-	#startGame()
+	netcode.stopLFGlisten()
 	rpc("startGame")
 	pass
 
